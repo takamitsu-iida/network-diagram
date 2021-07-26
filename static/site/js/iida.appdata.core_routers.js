@@ -2,13 +2,17 @@
 
 (function () {
 
+    var x = 1200;
+    var y = 400;
+    var y_interval = 200;
+
     var routers = [
         {
-            'position': { x: 300, y: 0 },
+            'position': { 'x': x, 'y': y + y_interval*0 },
             'id': "C棟コアルータ#1",
             'label': "C棟コアルータ#1\nNCS-55A1-36H-B\ntac-his-cr103\nloopback:172.16.11.3\nMgmt 10.100.1.244",
             'width': 200,
-            'drag_with': "C棟コアルータ#2",
+            'drag_with': ["C棟コアルータ#2", "B棟コアルータ#1", "B棟コアルータ#2"],
             'ports': [
                 {
                     'id': "Hu0/0/0/0",
@@ -26,6 +30,11 @@
                     'align': ['R', 'C']
                 },
                 {
+                    'id': "Hu0/0/0/27Connector",
+                    'classes': ['connector'],
+                    'align': ['OR', 'C']
+                },
+                {
                     'id': "Hu0/0/0/22",
                     'label': "Hu0/0/0/22\n.37",
                     'align': ['R', 'B']
@@ -39,10 +48,10 @@
         },
 
         {
-            'position': { x: 300, y: 200 },
+            'position': { 'x': x, 'y': y + y_interval*1 },
             'id': "C棟コアルータ#2",
             'label': "C棟コアルータ#2\nNCS-55A1-36H-B\ntac-his-cr104\nloopback:172.16.11.4\nMgmt 10.100.1.243",
-            'drag_with': "C棟コアルータ#1",
+            'drag_with': ["C棟コアルータ#1", "B棟コアルータ#1", "B棟コアルータ#2"],
             'ports': [
                 {
                     'id': "Hu0/0/0/0",
@@ -65,6 +74,11 @@
                     'align': ['R', 'B']
                 },
                 {
+                    'id': "Hu0/0/0/27Connector",
+                    'classes': ['connector'],
+                    'align': ['ORR', 'B']
+                },
+                {
                     'id': "Hu0/0/0/1",
                     'label': "Hu0/0/0/1\n.101",
                     'align': ['L', 'C']
@@ -77,6 +91,118 @@
             'target': "C棟コアルータ#2Hu0/0/0/22",
             'label': "192.168.19.36/30"
         },
+
+        {
+            'position': { 'x': x, 'y': y + y_interval*2 },
+            'id': "B棟コアルータ#1",
+            'label': "B棟コアルータ#1\nNCS-55A1-36H-B\ntab-his-cr201\nloopback:172.16.11.1\nMgmt 10.100.1.246",
+            'drag_with': ["B棟コアルータ#2", "C棟コアルータ#1", "C棟コアルータ#2"],
+            'ports': [
+                {
+                    'id': "Hu0/0/0/27",
+                    'label': "Hu0/0/0/27\n.41",
+                    'align': ['R', 'T']
+                },
+                {
+                    'id': "Hu0/0/0/27Connector",
+                    'classes': ['connector'],
+                    'align': ['OR', 'T']
+                },
+                {
+                    'id': "Hu0/0/0/16",
+                    'label': "Hu0/0/0/16\n.1",
+                    'align': ['R', 'C']
+                },
+                {
+                    'id': "Hu0/0/0/22",
+                    'label': "Hu0/0/0/22\n.33",
+                    'align': ['R', 'B']
+                },
+                {
+                    'id': "Hu0/0/0/1",
+                    'label': "Hu0/0/0/1\n.9",
+                    'align': ['L', 'B']
+                },
+                {
+                    'id': "Hu0/0/0/0",
+                    'label': "Hu0/0/0/0\n.1",
+                    'align': ['L', 'C']
+                },
+            ]
+        },
+
+        {
+            'position': { 'x': x, 'y': y + y_interval*3 },
+            'id': "B棟コアルータ#2",
+            'label': "B棟コアルータ#2\nNCS-55A1-36H-B\ntab-his-cr202\nloopback:172.16.11.2\nMgmt 10.100.1.245",
+            'drag_with': ["B棟コアルータ#1", "C棟コアルータ#1", "C棟コアルータ#2"],
+            'ports': [
+                {
+                    'id': "Hu0/0/0/22",
+                    'label': "Hu0/0/0/22\n.34",
+                    'align': ['R', 'T']
+                },
+                {
+                    'id': "Hu0/0/0/27",
+                    'label': "Hu0/0/0/27\n.45",
+                    'align': ['R', 'C']
+                },
+                {
+                    'id': "Hu0/0/0/27Connector",
+                    'classes': ['connector'],
+                    'align': ['ORR', 'C']
+                },
+                {
+                    'id': "Hu0/0/0/16",
+                    'label': "Hu0/0/0/16\n.5",
+                    'align': ['R', 'B']
+                },
+                {
+                    'id': "Hu0/0/0/1",
+                    'label': "Hu0/0/0/1\n.13",
+                    'align': ['L', 'B']
+                },
+                {
+                    'id': "Hu0/0/0/0",
+                    'label': "Hu0/0/0/0\n.5",
+                    'align': ['L', 'C']
+                },
+            ]
+        },
+
+        {
+            'source': "B棟コアルータ#1Hu0/0/0/22",
+            'target': "B棟コアルータ#2Hu0/0/0/22",
+            'label': "192.168.19.32/30"
+        },
+
+        {
+            'source': "C棟コアルータ#1Hu0/0/0/27",
+            'target': "C棟コアルータ#1Hu0/0/0/27Connector"
+        },
+        {
+            'source': "C棟コアルータ#1Hu0/0/0/27Connector",
+            'target': "B棟コアルータ#1Hu0/0/0/27Connector",
+            'label': "192.168.19.40/30"
+        },
+        {
+            'source': "B棟コアルータ#1Hu0/0/0/27Connector",
+            'target': "B棟コアルータ#1Hu0/0/0/27"
+        },
+
+        {
+            'source': "C棟コアルータ#2Hu0/0/0/27",
+            'target': "C棟コアルータ#2Hu0/0/0/27Connector"
+        },
+        {
+            'source': "C棟コアルータ#2Hu0/0/0/27Connector",
+            'target': "B棟コアルータ#2Hu0/0/0/27Connector",
+            'label': "192.168.19.44/30"
+        },
+        {
+            'source': "B棟コアルータ#2Hu0/0/0/27Connector",
+            'target': "B棟コアルータ#2Hu0/0/0/27"
+        }
 
     ];
 
