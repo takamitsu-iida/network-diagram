@@ -4,6 +4,8 @@
 
     iida.nwdiagram = function () {
 
+        console.log(iida.appdata.graph_data);
+
         var DEFAULT_NODE_WIDTH = 200;
         var DEFAULT_NODE_HEIGHT = 120;
         var DEFAULT_PORT_WIDTH = 60;
@@ -253,211 +255,10 @@
             return exports;
         };
 
-        var graph_data = [
-            {
-                'position': { x: 300, y: 0 },
-                'id': "C棟コアルータ#1",
-                'label': "C棟コアルータ#1\nNCS-55A1-36H-B\ntac-his-cr103\nloopback:172.16.11.3\nMgmt 10.100.1.244",
-                'width': 200,
-                'drag_with': "C棟コアルータ#2",
-                'ports': [
-                    {
-                        'id': "Hu0/0/0/0",
-                        'label': "Hu0/0/0/0\n.89",
-                        'align': ['L', 'T']
-                    },
-                    {
-                        'id': "Hu0/0/0/16",
-                        'label': "Hu0/0/0/16\n.9",
-                        'align': ['R', 'T']
-                    },
-                    {
-                        'id': "Hu0/0/0/27",
-                        'label': "Hu0/0/0/27\n.42",
-                        'align': ['R', 'C']
-                    },
-                    {
-                        'id': "Hu0/0/0/22",
-                        'label': "Hu0/0/0/22\n.37",
-                        'align': ['R', 'B']
-                    },
-                    {
-                        'id': "Hu0/0/0/1",
-                        'label': "Hu0/0/0/1\n.97",
-                        'align': ['L', 'C']
-                    }
-                ],
-            },
-            {
-                'position': { x: 300, y: 200 },
-                'id': "C棟コアルータ#2",
-                'label': "C棟コアルータ#2\nNCS-55A1-36H-B\ntac-his-cr104\nloopback:172.16.11.4\nMgmt 10.100.1.243",
-                'drag_with': "C棟コアルータ#1",
-                'ports': [
-                    {
-                        'id': "Hu0/0/0/0",
-                        'label': "Hu0/0/0/0\n.94",
-                        'align': ['L', 'T']
-                    },
-                    {
-                        'id': "Hu0/0/0/22",
-                        'label': "Hu0/0/0/22\n.38",
-                        'align': ['R', 'T']
-                    },
-                    {
-                        'id': "Hu0/0/0/16",
-                        'label': "Hu0/0/0/16\n.13",
-                        'align': ['R', 'C']
-                    },
-                    {
-                        'id': "Hu0/0/0/27",
-                        'label': "Hu0/0/0/27\n.46",
-                        'align': ['R', 'B']
-                    },
-                    {
-                        'id': "Hu0/0/0/1",
-                        'label': "Hu0/0/0/1\n.101",
-                        'align': ['L', 'C']
-                    }
-                ]
-            },
-            {
-                'position': { x: 0, y: 50 },
-                'id': "ユーザ収容ルータ#1",
-                'label': "ユーザ収容ルータ#1\nNCS5501\ntac-his-ur527\nloopback:172.16.14.27\nMgmt 10.100.1.86",
-                'drag_with': "ユーザ収容ルータ#2",
-                'ports': [
-                    {
-                        'id': "Hu0/0/1/0",
-                        'label': "Hu0/0/0/1/0\n.90",
-                        'align': ['R', 'C']
-                    },
-                    {
-                        'id': "Hu0/0/1/2",
-                        'label': "Hu0/0/1/2\n.45",
-                        'align': ['R', 'B']
-                    },
-                    {
-                        'id': "Gi0/0/0/0",
-                        'label': "Gi0/0/0/0\nBundle-E1000",
-                        'align': ['L', 'C']
-                    },
-                    {
-                        'id': "Hu0/0/1/4",
-                        'label': "Hu0/0/1/4",
-                        'align': ['L', 'T']
-                    },
-                    {
-                        'id': "Hu0/0/1/4Connector",
-                        'classes': ['connector'],
-                        'align': ['L', 'OT']
-                    },
-                    {
-                        'id': "Hu0/0/1/5",
-                        'label': "Hu0/0/1/5\n.253",
-                        'align': ['C', 'T']
-                    },
-                    {
-                        'id': "Hu0/0/1/5Connector",
-                        'classes': ['connector'],
-                        'align': ['C', 'OT']
-                    }
-                ]
-            },
-            {
-                'position': { x: 0, y: 250 },
-                'id': "ユーザ収容ルータ#2",
-                'label': "ユーザ収容ルータ#2\nNCS5501\ntac-his-ur528\nloopback:172.16.14.28\nMgmt 10.100.1.92",
-                'drag_with': "ユーザ収容ルータ#1",
-                'ports': [
-                    {
-                        'id': "Hu0/0/1/2",
-                        'label': "Hu0/0/1/2\n.46",
-                        'align': ['R', 'T']
-                    },
-                    {
-                        'id': "Hu0/0/1/0",
-                        'label': "Hu0/0/1/0\n.93",
-                        'align': ['R', 'C']
-                    },
-                    {
-                        'id': "Hu0/0/1/5",
-                        'label': "Hu0/0/1/5\n.254",
-                        'align': ['C', 'B'],
-                    },
-                    {
-                        'id': "Hu0/0/1/5Connector",
-                        'align': ['C', 'OB'],
-                        'classes': ['connector']
-                    },
-                    {
-                        'id': "Hu0/0/1/4",
-                        'align': ['L', 'B']
-                    },
-                    {
-                        'id': "Hu0/0/1/4Connector",
-                        'align': ['L', 'OB'],
-                        'classes': ['connector']
-                    },
-                    {
-                        'id': "G0/0/0/0",
-                        'label': "G0/0/0/0\nBundle-E1000",
-                        'align': ['L', 'C']
-                    }
-                ]
-            },
-            {
-                'source': "C棟コアルータ#1Hu0/0/0/22",
-                'target': "C棟コアルータ#2Hu0/0/0/22",
-                'label': "192.168.19.36/30"
-            },
-            {
-                'source': "ユーザ収容ルータ#1Hu0/0/1/5",
-                'target': "ユーザ収容ルータ#1Hu0/0/1/5Connector"
-            },
-            {
-                'source': "ユーザ収容ルータ#1Hu0/0/1/4",
-                'target': "ユーザ収容ルータ#1Hu0/0/1/4Connector"
-            },
-            {
-                'source': "ユーザ収容ルータ#1Hu0/0/1/5Connector",
-                'target': "ユーザ収容ルータ#1Hu0/0/1/4Connector",
-                'label': ".253"
-            },
-            {
-                'source': "ユーザ収容ルータ#2Hu0/0/1/5",
-                'target': "ユーザ収容ルータ#2Hu0/0/1/5Connector"
-            },
-            {
-                'source': "ユーザ収容ルータ#2Hu0/0/1/4",
-                'target': "ユーザ収容ルータ#2Hu0/0/1/4Connector"
-            },
-            {
-                'source': "ユーザ収容ルータ#2Hu0/0/1/5Connector",
-                'target': "ユーザ収容ルータ#2Hu0/0/1/4Connector",
-                'label': ".254"
-            },
-            {
-                'source': "ユーザ収容ルータ#1Hu0/0/1/2",
-                'target': "ユーザ収容ルータ#2Hu0/0/1/2",
-                'label': "192.168.14.44/30"
-            },
-            {
-                'source': "C棟コアルータ#1Hu0/0/0/0",
-                'target': "ユーザ収容ルータ#1Hu0/0/1/0",
-                'label': "192.168.10.88/30"
-            },
-            {
-                'source': "C棟コアルータ#2Hu0/0/0/0",
-                'target': "ユーザ収容ルータ#2Hu0/0/1/0",
-                'label': "192.168.10.96/30"
-            }
-        ];
-
         //
-        // 足りないデータを補完してcytoscape.js用のデータelesを作成する
+        // iida.appdata.graph_data配列から足りないデータを補完してcytoscape.js用のデータelesを作成する
         //
-        graph_data.forEach(element => {
+        iida.appdata.graph_data.forEach(element => {
             var position = element.position || undefined;
             if (position) {  // ノードだと考えて処理する
                 var pid = element.id;
@@ -578,14 +379,8 @@
             maxZoom: 4,
             boxSelectionEnabled: false,
             autounselectify: true,
-            layout: {  // レイアウトの初期値
-                name: 'preset',
-                // name: 'grid',
-                // name: 'circle',
-                // name: 'breadthfirst',
-                // name: 'elk',
-                // name: 'fcose'
-                nodeSep: 0,
+            layout: {
+                name: 'preset'
             },
             style: basic_style,
             elements: eles,
@@ -603,6 +398,7 @@
             });
         });
 
+        // on drag, find drag_with nodes and set position
         cy.on('drag', '.pnode', function (evt) {
             var delta_x = this.position().x - this.data('grab_x');
             var delta_y = this.position().y - this.data('grab_y');
@@ -618,6 +414,7 @@
             });
         });
 
+        // on position, fix port nodes position
         cy.on('position', '.pnode', function (evt) {
             var pnode = evt.target;
             pnode_position = pnode.position();
@@ -633,29 +430,6 @@
                 offset_y = port.data('offset_y');
                 port.position({ x: pnode_position.x + offset_x, y: pnode_position.y + offset_y })
             });
-        });
-
-
-        //
-        // たぶん使わない
-        //
-        var CyLayout = (function () {
-            var _setLayout = function (cy, layoutName) {
-                var layout = {
-                    name: layoutName,
-                    fit: true,
-                    animate: true,
-                };
-                // cy.layout(layout).run();
-                cy.$(".pnode").layout(layout).run();
-                return layout;
-            };
-            return {
-                setLeyout: _setLayout
-            };
-        })();
-        document.getElementById('Layout').addEventListener('change', function (event) {
-            CyLayout.setLeyout(cy, event.target.value);
         });
 
         cy.fit();
