@@ -482,7 +482,7 @@
         var CyLayout = (function () {
             var _set_layout = function (cy, layout_name) {
                 if (layout_name === "preset") {
-                    return restore_positions();
+                    return animate_to_initial_position();
                 }
                 var layout = {
                     name: layout_name,
@@ -501,20 +501,16 @@
             CyLayout.layout(cy, event.target.value);
         });
 
-        const get_initial_position = n => Object.assign({}, n.data('initial_position'));
+        var get_initial_position = function (node) { return node.data('initial_position'); };
 
-        const animate_to_initial_position = function () {
-            return Promise.all(cy.nodes('.router').map(n => {
-                return n.animation({
-                    position: get_initial_position(n),
+        var animate_to_initial_position = function () {
+            return Promise.all(cy.nodes('.router').map(node => {
+                return node.animation({
+                    position: get_initial_position(node),
                     duration: 1000,
                     easing: 'ease'
                 }).play().promise();
             }));
-        };
-
-        const restore_positions = function () {
-            return animate_to_initial_position();
         };
 
         cy.fit();
