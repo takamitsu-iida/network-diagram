@@ -14,7 +14,7 @@
 
         var create_node = function (id) {
 
-            // for parent node
+            // for router node
             var _id = id;
             var _label = id;
             var _position = { x: 0, y: 0 };
@@ -29,6 +29,8 @@
             var _align = ['L', 'T'];  // Left, Top
             var _offset_x = 0;
             var _offset_y = 0;
+
+            // for grouping
             var _parent = undefined;
 
             function exports() {
@@ -38,13 +40,15 @@
             exports.toObject = function () {
                 var data = {};
 
-                // for router
+                // for router and port common parameters
                 data['id'] = _id;
                 data['label'] = _label;
                 data['width'] = _width;
                 data['height'] = _height;
                 data['drag_with'] = _drag_with;
-                // for port
+                data['initial_position'] = Object.assign({}, _position);  // store initial position to revert to preset position
+
+                // for port only parameters
                 if (_router_id) {
                     data['router_id'] = _router_id;
                     data['align'] = _align;
@@ -118,7 +122,7 @@
                 if (!arguments.length) {
                     return _drag_with;
                 }
-                if (typeof(_) === "string") {
+                if (typeof (_) === "string") {
                     _drag_with = [_];
                 } else {
                     _drag_with = _;
@@ -152,9 +156,9 @@
             };
 
 
-            exports.fit = function (parent_position, parent_width, parent_height) {
-                var nw = parent_width / 2;
-                var nh = parent_height / 2;
+            exports.fit = function (router_position, router_width, router_height) {
+                var nw = router_width / 2;
+                var nh = router_height / 2;
                 var pw = _width / 2;
                 var ph = _height / 2;
                 var oo = DEFAULT_OUTSIDE_OFFSET;
@@ -184,6 +188,9 @@
                     case 'T':  // Top
                         _offset_y = -1 * (nh - ph);
                         break;
+                    case 'T2':  // 2nd Top
+                        _offset_y = -1 * (nh - ph) + _height;
+                        break;
                     case 'OT':  // Outside Top
                         _offset_y = -1 * (nh + oo);
                         break;
@@ -197,7 +204,7 @@
                         _offset_y = nh + oo;
                         break;
                 }
-                _position = { x: parent_position.x + _offset_x, y: parent_position.y + _offset_y }
+                _position = { x: router_position.x + _offset_x, y: router_position.y + _offset_y }
 
                 return this;
             };
@@ -386,6 +393,11 @@
                 selector: '.parent',
                 style: {
                     'shape': "rectangle",
+                    'label': "data(label)",
+                    'text-wrap': "wrap",
+                    'text-valign': "center",
+                    'text-halign': "center",
+                    'font-size': "8px",
                     'background-color': "#f0e68c",
                     'border-width': 0,
                     'opacity': 1
@@ -422,7 +434,7 @@
         });
 
 
-        // on grab, all parent node save own position
+        // on grab, all router node save own position
         cy.on('grab', '.router', function (evt) {
             this.data('grab_x', this.position().x);
             this.data('grab_y', this.position().y);
@@ -444,15 +456,15 @@
                 if (n && !n.grabbed()) {
                     var old_x = n.data('old_x');
                     var old_y = n.data('old_y');
-                    n.position({x: old_x + delta_x, y: old_y + delta_y });
+                    n.position({ x: old_x + delta_x, y: old_y + delta_y });
                 }
             });
         });
 
-        // on position, fix port nodes position
+        // on position, fix port position
         cy.on('position', '.router', function (evt) {
             var router = evt.target;
-            router_position = router.position();
+            var router_position = router.position();
 
             // var ports = cy.$(".port").filter(function (n) {
             var ports = cy.$("node").filter(function (n) {
@@ -461,11 +473,49 @@
                 }
             });
             ports.forEach(port => {
-                offset_x = port.data('offset_x');
-                offset_y = port.data('offset_y');
+                var offset_x = port.data('offset_x');
+                var offset_y = port.data('offset_y');
                 port.position({ x: router_position.x + offset_x, y: router_position.y + offset_y })
             });
         });
+
+        var CyLayout = (function () {
+            var _set_layout = function (cy, layout_name) {
+                if (layout_name === "preset") {
+                    return restore_positions();
+                }
+                var layout = {
+                    name: layout_name,
+                    fit: true,
+                    animate: true,
+                };
+                // cy.layout(layout).run();
+                cy.$(".router").layout(layout).run();
+            };
+            return {
+                layout: _set_layout
+            };
+        })();
+
+        document.getElementById('Layout').addEventListener('change', function (event) {
+            CyLayout.layout(cy, event.target.value);
+        });
+
+        const get_initial_position = n => Object.assign({}, n.data('initial_position'));
+
+        const animate_to_initial_position = function () {
+            return Promise.all(cy.nodes('.router').map(n => {
+                return n.animation({
+                    position: get_initial_position(n),
+                    duration: 1000,
+                    easing: 'ease'
+                }).play().promise();
+            }));
+        };
+
+        const restore_positions = function () {
+            return animate_to_initial_position();
+        };
 
         cy.fit();
 
