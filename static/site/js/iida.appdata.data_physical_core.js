@@ -2,11 +2,14 @@
 
 (function () {
 
-    var x = 1200;
-    var y = 400;
-    var y_interval = 200;
+    var x, y, y_interval;
+    var routers;
 
-    var routers = [
+    x = 1200;
+    y = 400;
+    y_interval = 200;
+
+    routers = [
         {
             'position': { 'x': x, 'y': y + y_interval*0 },
             'id': "C棟コアルータ#1",

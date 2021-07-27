@@ -2,11 +2,14 @@
 
 (function () {
 
-    var x = 1500;
-    var y = 300;
-    var y_interval = 200;
+    var x, y, y_interval;
+    var routers;
 
-    var routers = [
+    x = 1500;
+    y = 300;
+    y_interval = 200;
+
+    routers = [
         {
             'position': { 'x': x, 'y': y + y_interval*0 },
             'id': "C棟サービス収容ルータ#1",
