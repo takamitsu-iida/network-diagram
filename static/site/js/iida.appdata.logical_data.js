@@ -2,6 +2,8 @@
 
 (function () {
 
+    iida.appdata.logical_routers = iida.appdata.logical_routers || [];
+
     var x, y, y_interval;
     var routers;
 
@@ -13,14 +15,13 @@
         {
             'position': { 'x': x, 'y': y + y_interval * 0 },
             'id': "C棟コアルータ#1",
-            'label': "C棟コアルータ#1\nNCS-55A1-36H-B\ntac-his-cr103\nloopback:172.16.11.3\nMgmt 10.100.1.244",
-            'width': 200,
+            'label': "C棟コアルータ#1\nNCS-55A1-36H-B\ntac-his-cr103\nloopback:172.16.11.3\nMgmt 10.100.1.244"
         },
 
         {
             'position': { 'x': x, 'y': y + y_interval * 1 },
             'id': "C棟コアルータ#2",
-            'label': "C棟コアルータ#2\nNCS-55A1-36H-B\ntac-his-cr104\nloopback:172.16.11.4\nMgmt 10.100.1.243",
+            'label': "C棟コアルータ#2\nNCS-55A1-36H-B\ntac-his-cr104\nloopback:172.16.11.4\nMgmt 10.100.1.243"
         },
 
         {
@@ -32,13 +33,13 @@
         {
             'position': { 'x': x, 'y': y + y_interval * 2 },
             'id': "B棟コアルータ#1",
-            'label': "B棟コアルータ#1\nNCS-55A1-36H-B\ntab-his-cr201\nloopback:172.16.11.1\nMgmt 10.100.1.246",
+            'label': "B棟コアルータ#1\nNCS-55A1-36H-B\ntab-his-cr201\nloopback:172.16.11.1\nMgmt 10.100.1.246"
         },
 
         {
             'position': { 'x': x, 'y': y + y_interval * 3 },
             'id': "B棟コアルータ#2",
-            'label': "B棟コアルータ#2\nNCS-55A1-36H-B\ntab-his-cr202\nloopback:172.16.11.2\nMgmt 10.100.1.245",
+            'label': "B棟コアルータ#2\nNCS-55A1-36H-B\ntab-his-cr202\nloopback:172.16.11.2\nMgmt 10.100.1.245"
         },
 
         {
@@ -58,7 +59,7 @@
         },
     ];
 
-    iida.appdata.logical_graph = (iida.appdata.logical_graph || []).concat(routers);
+    iida.appdata.logical_routers = iida.appdata.logical_routers.concat(routers);
 
 
     x = 900;
@@ -69,28 +70,28 @@
         {
             'position': { 'x': x, 'y': y + y_interval * 0 },
             'id': "C棟ユーザ収容ルータ#1",
-            'label': "C棟ユーザ収容ルータ#1\nNCS5501\ntac-his-ur527\nloopback:172.16.14.27\nMgmt 10.100.1.86",
+            'label': "C棟ユーザ収容ルータ#1\nNCS5501\ntac-his-ur527\nloopback:172.16.14.27\nMgmt 10.100.1.86"
         },
 
         {
             'position': { 'x': x, 'y': y + y_interval * 1 },
             'id': "C棟ユーザ収容ルータ#2",
-            'label': "C棟ユーザ収容ルータ#2\nNCS5501\ntac-his-ur528\nloopback:172.16.14.28\nMgmt 10.100.1.92",
+            'label': "C棟ユーザ収容ルータ#2\nNCS5501\ntac-his-ur528\nloopback:172.16.14.28\nMgmt 10.100.1.92"
         },
 
         {
-            'source': "C棟ユーザ収容ルータ",
-            'target': "C棟ユーザ収容ルータ",
+            'source': "C棟ユーザ収容ルータ#1",
+            'target': "C棟ユーザ収容ルータ#1",
         },
 
         {
-            'source': "C棟ユーザ収容ルータ",
-            'target': "C棟ユーザ収容ルータ",
+            'source': "C棟ユーザ収容ルータ#2",
+            'target': "C棟ユーザ収容ルータ#2",
         },
 
         {
-            'source': "C棟ユーザ収容ルータ",
-            'target': "C棟ユーザ収容ルータ",
+            'source': "C棟ユーザ収容ルータ#1",
+            'target': "C棟ユーザ収容ルータ#2",
             'label': "192.168.14.44/30"
         },
 
@@ -198,7 +199,7 @@
 
     ];
 
-    iida.appdata.logical_graph = (iida.appdata.logical_graph || []).concat(routers);
+    iida.appdata.logical_routers = iida.appdata.logical_routers.concat(routers);
 
 
     x = 1500;
@@ -207,7 +208,7 @@
 
     routers = [
         {
-            'position': { 'x': x, 'y': y + y_interval*0 },
+            'position': { 'x': x, 'y': y + y_interval * 0 },
             'id': "C棟サービス収容ルータ#1",
             'label': "C棟サービス収容ルータ#1\nASR 9901\ntac-his-sr103\nloopback:172.16.13.3\nMgmt 10.100.1.240",
         },
@@ -219,7 +220,7 @@
         },
 
         {
-            'position': { 'x': x, 'y': y + y_interval*1 },
+            'position': { 'x': x, 'y': y + y_interval * 1 },
             'id': "C棟サービス収容ルータ#2",
             'label': "C棟サービス収容ルータ#2\nASR 9901\ntac-his-sr104\nloopback:172.16.13.4\nMgmt 10.100.1.239\n",
         },
@@ -238,6 +239,6 @@
 
     ];
 
-    iida.appdata.logical_graph = (iida.appdata.logical_graph || []).concat(routers);
+    iida.appdata.logical_routers = iida.appdata.logical_routers.concat(routers);
 
 })();

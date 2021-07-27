@@ -2,6 +2,8 @@
 
 (function () {
 
+    iida.appdata.physical_routers = iida.appdata.physical_routers || [];
+
     var x, y, y_interval;
     var routers;
 
@@ -132,6 +134,6 @@
 
     ];
 
-    iida.appdata.physical_graph = (iida.appdata.physical_graph || []).concat(routers);
+    iida.appdata.physical_routers = iida.appdata.physical_routers.concat(routers);
 
 })();
