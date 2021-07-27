@@ -31,7 +31,7 @@
                 },
                 {
                     'id': "Hu0/0/0/27Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['OR', 'C']
                 },
                 {
@@ -75,7 +75,7 @@
                 },
                 {
                     'id': "Hu0/0/0/27Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['ORR', 'B']
                 },
                 {
@@ -105,7 +105,7 @@
                 },
                 {
                     'id': "Hu0/0/0/27Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['OR', 'T']
                 },
                 {
@@ -149,7 +149,7 @@
                 },
                 {
                     'id': "Hu0/0/0/27Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['ORR', 'C']
                 },
                 {
@@ -206,6 +206,6 @@
 
     ];
 
-    iida.appdata.graph_data = (iida.appdata.graph_data || []).concat(routers);
+    iida.appdata.physical_graph = (iida.appdata.physical_graph || []).concat(routers);
 
 })();

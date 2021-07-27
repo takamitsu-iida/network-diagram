@@ -40,7 +40,7 @@
                 },
                 {
                     'id': "G0/0/0/10Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['OR', 'C'],
                     'parent': "C棟サービス収容ルータ#1#2Bundle-Ether1010"
                 },
@@ -101,7 +101,7 @@
                 },
                 {
                     'id': "G0/0/0/10Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['OR', 'C'],
                     'parent': "C棟サービス収容ルータ#1#2Bundle-Ether1010"
                 },
@@ -129,6 +129,6 @@
 
     ];
 
-    iida.appdata.graph_data = (iida.appdata.graph_data || []).concat(routers);
+    iida.appdata.physical_graph = (iida.appdata.physical_graph || []).concat(routers);
 
 })();

@@ -10,8 +10,6 @@
         var DEFAULT_PORT_HEIGHT = 20;
         var DEFAULT_OUTSIDE_OFFSET = 20;
 
-        var eles = []
-
         var create_node = function (id) {
 
             // for router node
@@ -278,50 +276,61 @@
         };
 
         //
-        // iida.appdata.graph_data配列から足りないデータを補完してcytoscape.js用のデータelesを作成する
+        // iida.appdata.physical_graph配列から足りないデータを補完してcytoscape.js用のデータelesを作成する
         //
-        iida.appdata.graph_data.forEach(element => {
-            if (element.source && element.target) {
-                // edge
-                var source = element.source;
-                var target = element.target;
-                var label = element.label || "";
-                var edge = create_edge(source + target).source(source).target(target).label(label);
-                eles.push(edge.toObject());
-            } else {
-                // router node
-                var position = element.position || { x: 0, y: 0 };
-                var router_id = element.id;
-                var label = element.label || '';
-                var node_width = element.width || DEFAULT_NODE_WIDTH;
-                var node_height = element.height || DEFAULT_NODE_HEIGHT;
-                var classes = element.classes || ['router'];
-                var ports = element.ports || [];
-                var drag_with = element.drag_with || [];
-                var router_node = create_node(router_id).position(position).label(label).width(node_width).height(node_height).classes(classes).drag_with(drag_with);
-                eles.push(router_node.toObject());
+        var create_physical_data = function () {
+            var eles = []
+            iida.appdata.physical_graph.forEach(element => {
+                if (element.source && element.target) {
+                    // edge
+                    var source = element.source;
+                    var target = element.target;
+                    var label = element.label || "";
+                    var edge = create_edge(source + target).source(source).target(target).label(label);
+                    eles.push(edge.toObject());
+                } else {
+                    // router node
+                    var position = element.position || { x: 0, y: 0 };
+                    var router_id = element.id;
+                    var label = element.label || '';
+                    var node_width = element.width || DEFAULT_NODE_WIDTH;
+                    var node_height = element.height || DEFAULT_NODE_HEIGHT;
+                    var classes = element.classes || ['router', 'physical_router'];
+                    var ports = element.ports || [];
+                    var drag_with = element.drag_with || [];
+                    var router_node = create_node(router_id).position(position).label(label).width(node_width).height(node_height).classes(classes).drag_with(drag_with);
+                    eles.push(router_node.toObject());
 
-                // port node
-                ports.forEach(element => {
-                    var port_id = element.id;
-                    var label = element.label || port_id;
-                    var align = element.align || 'TL';
-                    var port_width = element.width || DEFAULT_PORT_WIDTH;
-                    var port_height = element.height || DEFAULT_PORT_HEIGHT;
-                    var classes = element.classes || ['port'];
-                    var parent = element.parent || undefined;
-                    var port = create_node(router_id + port_id).router_id(router_id).align(align).label(label).width(port_width).height(port_height).classes(classes).parent(parent).fit(position, node_width, node_height);
-                    eles.push(port.toObject());
-                });
-            }
+                    // port node
+                    ports.forEach(element => {
+                        var port_id = element.id;
+                        var label = element.label || port_id;
+                        var align = element.align || 'TL';
+                        var port_width = element.width || DEFAULT_PORT_WIDTH;
+                        var port_height = element.height || DEFAULT_PORT_HEIGHT;
+                        var classes = element.classes || ['port', 'physical_port'];
+                        var parent = element.parent || undefined;
+                        var port = create_node(router_id + port_id).router_id(router_id).align(align).label(label).width(port_width).height(port_height).classes(classes).parent(parent).fit(position, node_width, node_height);
+                        eles.push(port.toObject());
+                    });
+                }
 
-        });
+            });
+            return eles;
+        };
 
+        var physical_eles = create_physical_data();
+
+        var create_logical_data = function () {
+            return iida.appdata.logical_graph;
+        };
+
+        var logical_eles = create_logical_data();
 
         var basic_style = [
             {
-                selector: 'edge',
-                style: {
+                'selector': "edge",
+                'style': {
                     'curve-style': "bezier", // "taxi" "bezier" "segments",
                     'width': 2,
                     'line-color': "#a9a9a9",
@@ -333,7 +342,7 @@
                     'label': edge => edge.data('label') ? `\u2060${edge.data('label')}\n\u2060` : '',
                     'text-wrap': "wrap",
                     'font-size': "8px",
-                    'edge-text-rotation': 'autorotate',
+                    'edge-text-rotation': "autorotate",
                     'source-endpoint': "outside-to-node-or-label",
                     'target-endpoint': "outside-to-node-or-label",
                     // 'source-text-offset': 10,
@@ -342,8 +351,8 @@
             },
 
             {
-                selector: '.router',
-                style: {
+                'selector': ".physical_router",
+                'style': {
                     'border-color': "#000",
                     'border-width': 1,
                     'shape': 'rectangle',
@@ -361,9 +370,9 @@
             },
 
             {
-                selector: '.port',
-                style: {
-                    'border-color': '#000',
+                'selector': ".physical_port",
+                'style': {
+                    'border-color': "#000",
                     'border-width': 1,
                     'shape': "rectangle",
                     'background-color': "#87ceeb",
@@ -380,8 +389,8 @@
             },
 
             {
-                selector: '.connector',
-                style: {
+                'selector': ".physical_connector",
+                'style': {
                     'shape': "rectangle",
                     'background-color': "#a9a9a9",
                     'width': 2,
@@ -390,8 +399,8 @@
             },
 
             {
-                selector: '.parent',
-                style: {
+                'selector': ".parent",
+                'style': {
                     'shape': "rectangle",
                     'label': "data(label)",
                     'text-wrap': "wrap",
@@ -405,20 +414,19 @@
             },
 
             {
-                selector: '.img_router',
-                style: {
-                    'background-image': 'https://takamitsu-iida.github.io/network-diagram/static/site/img/router.jpg'
+                'selector': ".img_router",
+                'style': {
+                    'background-image': "https://takamitsu-iida.github.io/network-diagram/static/site/img/router.jpg"
                 }
             },
 
             {
-                selector: '.img_firewall',
-                style: {
-                    'background-image': 'https://takamitsu-iida.github.io/network-diagram/static/site/img/firewall.jpg'
+                'selector': ".img_firewall",
+                'style': {
+                    'background-image': "https://takamitsu-iida.github.io/network-diagram/static/site/img/firewall.jpg"
                 }
             }
         ]
-
 
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'),
@@ -430,16 +438,15 @@
                 name: 'preset'
             },
             style: basic_style,
-            elements: eles,
+            elements: physical_eles
         });
-
 
         // on grab, all router node save own position
         cy.on('grab', '.router', function (evt) {
             this.data('grab_x', this.position().x);
             this.data('grab_y', this.position().y);
 
-            cy.$(".router").forEach(function (n) {
+            cy.$('.router').forEach(function (n) {
                 n.data('old_x', n.position().x);
                 n.data('old_y', n.position().y);
             });
@@ -466,8 +473,7 @@
             var router = evt.target;
             var router_position = router.position();
 
-            // var ports = cy.$(".port").filter(function (n) {
-            var ports = cy.$("node").filter(function (n) {
+            var ports = cy.nodes().filter(function (n) {
                 if (n.data('router_id') === router.id()) {
                     return n;
                 }
@@ -479,32 +485,10 @@
             });
         });
 
-        var CyLayout = (function () {
-            var _set_layout = function (cy, layout_name) {
-                if (layout_name === "preset") {
-                    return animate_to_initial_position();
-                }
-                var layout = {
-                    name: layout_name,
-                    fit: true,
-                    animate: true,
-                };
-                // cy.layout(layout).run();
-                cy.$(".router").layout(layout).run();
-            };
-            return {
-                layout: _set_layout
-            };
-        })();
-
-        document.getElementById('Layout').addEventListener('change', function (event) {
-            CyLayout.layout(cy, event.target.value);
-        });
-
         var get_initial_position = function (node) { return node.data('initial_position'); };
 
         var animate_to_initial_position = function () {
-            return Promise.all(cy.nodes('.router').map(node => {
+            Promise.all(cy.nodes('.router').map(node => {
                 return node.animation({
                     position: get_initial_position(node),
                     duration: 1000,
@@ -513,7 +497,50 @@
             }));
         };
 
-        cy.fit();
+        var CyLayout = (function () {
+            var _set_layout = function (cy, layout_name) {
+                if (layout_name === 'preset') {
+                    animate_to_initial_position();
+                    return;
+                }
+                var layout = {
+                    name: layout_name,
+                    fit: true,
+                    animate: true,
+                };
+                // cy.layout(layout).run();
+                cy.$('.router').layout(layout).run();
+            };
+            return {
+                set_layout: _set_layout
+            };
+        })();
+
+        document.getElementById('Layout').addEventListener('change', function (event) {
+            CyLayout.set_layout(cy, event.target.value);
+        });
+
+        var CyData = (function () {
+            var _set_data = function (cy, data_name) {
+                var eles = [];
+                if (data_name === 'physical') {
+                    eles = physical_eles;
+                } else if (data_name === 'logical') {
+                    eles = logical_eles;
+                }
+                cy.elements().remove();
+                cy.add(eles);
+            };
+            return {
+                set_data: _set_data
+            };
+        })();
+
+        document.getElementById('Data').addEventListener('change', function (event) {
+            CyData.set_data(cy, event.target.value);
+        });
+
+
 
     };
     //

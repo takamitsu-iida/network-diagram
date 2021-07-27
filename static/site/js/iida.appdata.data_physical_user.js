@@ -37,7 +37,7 @@
                 },
                 {
                     'id': "Hu0/0/1/4Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['L', 'OT']
                 },
                 {
@@ -47,7 +47,7 @@
                 },
                 {
                     'id': "Hu0/0/1/5Connector",
-                    'classes': ['connector'],
+                    'classes': ['physical_connector'],
                     'align': ['C', 'OT']
                 }
             ]
@@ -77,7 +77,7 @@
                 {
                     'id': "Hu0/0/1/5Connector",
                     'align': ['C', 'OB'],
-                    'classes': ['connector']
+                    'classes': ['physical_connector']
                 },
                 {
                     'id': "Hu0/0/1/4",
@@ -87,7 +87,7 @@
                 {
                     'id': "Hu0/0/1/4Connector",
                     'align': ['L', 'OB'],
-                    'classes': ['connector']
+                    'classes': ['physical_connector']
                 },
                 {
                     'id': "G0/0/0/0",
@@ -151,7 +151,7 @@
         {
             'source': "C棟コアルータ#2Hu0/0/0/0",
             'target': "C棟ユーザ収容ルータ#2Hu0/0/1/0",
-            'label': "192.168.10.96/30"
+            'label': "192.168.10.92/30"
         },
 
         {
@@ -380,6 +380,6 @@
 
     ];
 
-    iida.appdata.graph_data = (iida.appdata.graph_data || []).concat(routers);
+    iida.appdata.physical_graph = (iida.appdata.physical_graph || []).concat(routers);
 
 })();

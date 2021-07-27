@@ -29,9 +29,10 @@
     <script type="text/javascript" src="./static/site/js/iida.nwdiagram.js"></script>
 
     <!-- iida.appdata -->
-    <script type="text/javascript" src="./static/site/js/iida.appdata.core_routers.js"></script>
-    <script type="text/javascript" src="./static/site/js/iida.appdata.user_accomodate_routers.js"></script>
-    <script type="text/javascript" src="./static/site/js/iida.appdata.service_accomodate_routers.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.data_physical_core.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.data_physical_service.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.data_physical_user.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.data_logical.js"></script>
 
 
 </head>
@@ -46,6 +47,13 @@
           <option value="concentric">concentric</option>
           <option value="breadthfirst">breadthfirst</option>
         </select>
+
+        <label for="Data">データ</label>
+        <select id="Data" name="nameData">
+          <option value="physical" selected>物理構成</option>
+          <option value="logical">論理構成</option>
+        </select>
+
     </div>
 
     <div id="cy"></div>
