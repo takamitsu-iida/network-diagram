@@ -10,6 +10,7 @@
                 'style': {
                     'curve-style': "bezier", // "taxi" "bezier" "segments",
                     'width': 2,
+                    // 'line-color': '#2B65EC',  // blue
                     'line-color': "#a9a9a9",
                     // 'target-arrow-color': "#a9a9a9",
                     // 'source-arrow-color': "#a9a9a9",
@@ -20,8 +21,8 @@
                     'text-wrap': "wrap",
                     'font-size': "8px",
                     'edge-text-rotation': "autorotate",
-                    'source-endpoint': "outside-to-node-or-label",
-                    'target-endpoint': "outside-to-node-or-label",
+                    'source-endpoint': "outside-to-node",
+                    'target-endpoint': "outside-to-node",
                     // 'source-text-offset': 10,
                     // 'target-text-offset': 10,
                 }
@@ -91,6 +92,45 @@
             },
 
             {
+                'selector': ".logical_router.P",
+                'style': {
+                    'border-color': "#000",
+                    'border-width': 1,
+                    'shape': "round-rectangle",
+                    'background-color': "#ffffff",
+                    'label': "data(label)",
+                    'width': "data(width)",
+                    'height': "data(height)",
+                    'font-size': "8px",
+                    'text-wrap': "wrap",
+                    'text-valign': "center",
+                    'text-halign': "center",
+                    'opacity': 0.8,
+                    'border-opacity': 1.0,
+                }
+            },
+
+            {
+                'selector': ".logical_router.PE",
+                'style': {
+                    'border-color': "#000",
+                    'border-width': 1,
+                    'shape': "round-rectangle",
+                    'background-color': "#30c9bc",
+                    'label': "data(label)",
+                    'width': "data(width)",
+                    'height': "data(height)",
+                    'font-size': "8px",
+                    'text-wrap': "wrap",
+                    'text-valign': "center",
+                    'text-halign': "center",
+                    'opacity': 0.8,
+                    'border-opacity': 1.0,
+                }
+            },
+
+
+            {
                 'selector': ".img_router",
                 'style': {
                     'background-image': "https://takamitsu-iida.github.io/network-diagram/static/site/img/router.jpg"
@@ -107,8 +147,8 @@
 
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'),
-            minZoom: 1,
-            maxZoom: 5,
+            minZoom: 0.5,
+            maxZoom: 3,
             boxSelectionEnabled: false,
             autounselectify: true,
             layout: {

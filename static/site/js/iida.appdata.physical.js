@@ -307,7 +307,7 @@
                 var node_width = element.width || DEFAULT_NODE_WIDTH;
                 var node_height = element.height || DEFAULT_NODE_HEIGHT;
                 // if classes is defined, use it
-                // if not defined, use default classes
+                // if not defined, use these classes as default
                 var classes = element.classes || ['router', 'physical_router'];
                 var ports = element.ports || [];
                 var drag_with = element.drag_with || [];

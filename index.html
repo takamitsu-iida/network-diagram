@@ -3,65 +3,84 @@
 <html lang="ja">
 
 <head>
-    <title>network diagram</title>
+  <title>network diagram</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="stylesheet" type="text/css" href="./static/site/css/iida.css" />
+  <link rel="stylesheet" type="text/css" href="./static/site/css/iida.css" />
 
-    <!-- jQuery -->
-    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
 
-    <!-- cytoscape.js -->
-    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+  <!-- cytoscape.js -->
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 
-    <!-- automove -->
-    <!--
+  <!-- automove -->
+  <!--
     <script src="https://unpkg.com/cytoscape-automove/cytoscape-automove.js"></script>
     -->
 
-    <!-- iida.startup.js -->
-    <script type="text/javascript" src="./static/site/js/iida.startup.js"></script>
+  <!-- iida.startup.js -->
+  <script type="text/javascript" src="./static/site/js/iida.startup.js"></script>
 
-    <!-- iida.appdata -->
-    <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_core.js"></script>
-    <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_service.js"></script>
-    <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_user.js"></script>
-    <script type="text/javascript" src="./static/site/js/iida.appdata.physical.js"></script>
-    <script type="text/javascript" src="./static/site/js/iida.appdata.logical_routers.js"></script>
-    <script type="text/javascript" src="./static/site/js/iida.appdata.logical.js"></script>
+  <!-- iida.appdata -->
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_core.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_service.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_user.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.logical_routers.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.logical.js"></script>
 
-    <!-- iida.nwdiagram.js -->
-    <script type="text/javascript" src="./static/site/js/iida.nwdiagram.js"></script>
+  <!-- iida.nwdiagram.js -->
+  <script type="text/javascript" src="./static/site/js/iida.nwdiagram.js"></script>
 
 </head>
 
 <body>
-    <div>
-        <label for="Layout">レイアウト</label>
-        <select id="Layout" name="nameLayout">
-          <option value="preset" selected>preset</option>
-          <option value="grid">grid</option>
-          <option value="circle">circle</option>
-          <option value="concentric">concentric</option>
-          <option value="breadthfirst">breadthfirst</option>
-        </select>
 
-        <label for="Data">データ</label>
-        <select id="Data" name="nameData">
-          <option value="physical" selected>物理構成</option>
-          <option value="logical">論理構成</option>
-        </select>
+  <div id="mySidepanel" class="sidepanel">
+    <div class="sidepanel_content">
+      <table>
+        <tr>
+          <td>
+            <span title="レイアウト変更"> レイアウト変更 </span>
+          </td>
+          <td>
+            <select id="Layout" name="nameLayout">
+              <option value="preset" selected>preset</option>
+              <option value="grid">grid</option>
+              <option value="circle">circle</option>
+              <option value="concentric">concentric</option>
+              <option value="breadthfirst">breadthfirst</option>
+            </select>
+          </td>
+        </tr>
 
+        <tr>
+          <td>
+            <span title="物理構成 or 論理構成"> データ変更 </span>
+          </td>
+          <td>
+            <select id="Data" name="nameData">
+              <option value="physical" selected>物理構成</option>
+              <option value="logical">論理構成</option>
+            </select>
+          </td>
+        </tr>
+
+
+      </table>
     </div>
+  </div>
 
-    <div id="cy"></div>
+  <div id="cy"></div>
+
 </body>
 
 <script>
-    document.addEventListener("DOMContentLoaded", iida.main)
+  document.addEventListener("DOMContentLoaded", iida.main)
 </script>
 
 </html>

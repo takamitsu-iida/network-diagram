@@ -2,8 +2,8 @@
 
 (function () {
 
-    var DEFAULT_NODE_WIDTH = 20;
-    var DEFAULT_NODE_HEIGHT = 20;
+    var DEFAULT_NODE_WIDTH = 80;
+    var DEFAULT_NODE_HEIGHT = 80;
 
     var create_node = function (id) {
 
@@ -184,7 +184,7 @@
                 var node_width = element.width || DEFAULT_NODE_WIDTH;
                 var node_height = element.height || DEFAULT_NODE_HEIGHT;
                 // if classes is defined, use it
-                // if not defined, use default classes
+                // if not defined, use these classes as default
                 var classes = element.classes || ['router', 'logical_router'];
                 var router_node = create_node(router_id).position(position).label(label).width(node_width).height(node_height).classes(classes);
                 eles.push(router_node.toObject());
