@@ -29,6 +29,11 @@
             'target': "C棟コアルータ#2",
             'label': "192.168.19.36/30"
         },
+    ];
+
+    Array.prototype.push.apply(iida.appdata.logical_routers, routers);
+
+    routers = [
 
         {
             'position': { 'x': x, 'y': y + y_interval * 2 },
@@ -59,8 +64,7 @@
         },
     ];
 
-    iida.appdata.logical_routers = iida.appdata.logical_routers.concat(routers);
-
+    Array.prototype.push.apply(iida.appdata.logical_routers, routers);
 
     x = 900;
     y = 0;
@@ -199,8 +203,7 @@
 
     ];
 
-    iida.appdata.logical_routers = iida.appdata.logical_routers.concat(routers);
-
+    Array.prototype.push.apply(iida.appdata.logical_routers, routers);
 
     x = 1500;
     y = 300;
@@ -239,6 +242,6 @@
 
     ];
 
-    iida.appdata.logical_routers = iida.appdata.logical_routers.concat(routers);
+    Array.prototype.push.apply(iida.appdata.logical_routers, routers);
 
 })();

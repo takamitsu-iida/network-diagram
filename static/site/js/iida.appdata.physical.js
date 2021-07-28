@@ -110,7 +110,14 @@
             if (!arguments.length) {
                 return _classes;
             }
-            _classes = _;
+            if (!_) {
+                return this;
+            }
+            if (typeof(_) === 'string') {
+                _ = _.split(",");
+            }
+            Array.prototype.push.apply(_classes, _);
+            _classes = _classes.filter((elem, index, self) => self.indexOf(elem) === index);
             return this;
         };
 
@@ -150,7 +157,6 @@
             _parent = _;
             return this;
         };
-
 
         exports.fit = function (router_position, router_width, router_height) {
             var nw = router_width / 2;
@@ -266,7 +272,14 @@
             if (!arguments.length) {
                 return _classes;
             }
-            _classes = _;
+            if (!_) {
+                return this;
+            }
+            if (typeof(_) === 'string') {
+                _ = _.split(",");
+            }
+            Array.prototype.push.apply(_classes, _);
+            _classes = _classes.filter((elem, index, self) => self.indexOf(elem) === index);
             return this;
         };
 
@@ -276,7 +289,7 @@
     //
     // iida.appdata.physical_routers配列から足りないデータを補完してcytoscape.js用のデータを作成する
     //
-    var create_physical_elements = function () {
+    var create_elements = function () {
         var eles = []
         iida.appdata.physical_routers.forEach(element => {
             if (element.source && element.target) {
@@ -293,6 +306,8 @@
                 var label = element.label || '';
                 var node_width = element.width || DEFAULT_NODE_WIDTH;
                 var node_height = element.height || DEFAULT_NODE_HEIGHT;
+                // if classes is defined, use it
+                // if not defined, use default classes
                 var classes = element.classes || ['router', 'physical_router'];
                 var ports = element.ports || [];
                 var drag_with = element.drag_with || [];
@@ -317,6 +332,6 @@
         return eles;
     };
 
-    iida.appdata.physical_elements = create_physical_elements();
+    iida.appdata.physical_elements = create_elements();
 
 })();

@@ -77,7 +77,14 @@
             if (!arguments.length) {
                 return _classes;
             }
-            _classes = _;
+            if (!_) {
+                return this;
+            }
+            if (typeof(_) === 'string') {
+                _ = _.split(",");
+            }
+            Array.prototype.push.apply(_classes, _);
+            _classes = _classes.filter((elem, index, self) => self.indexOf(elem) === index);
             return this;
         };
 
@@ -143,7 +150,14 @@
             if (!arguments.length) {
                 return _classes;
             }
-            _classes = _;
+            if (!_) {
+                return this;
+            }
+            if (typeof(_) === 'string') {
+                _ = _.split(",");
+            }
+            Array.prototype.push.apply(_classes, _);
+            _classes = _classes.filter((elem, index, self) => self.indexOf(elem) === index);
             return this;
         };
 
@@ -153,7 +167,7 @@
     //
     // iida.appdata.logical_routers配列から足りないデータを補完してcytoscape.js用のデータを作成する
     //
-    var create_logical_elements = function () {
+    var create_elements = function () {
         var eles = []
         iida.appdata.logical_routers.forEach(element => {
             if (element.source && element.target) {
@@ -169,6 +183,8 @@
                 var label = element.label || '';
                 var node_width = element.width || DEFAULT_NODE_WIDTH;
                 var node_height = element.height || DEFAULT_NODE_HEIGHT;
+                // if classes is defined, use it
+                // if not defined, use default classes
                 var classes = element.classes || ['router', 'logical_router'];
                 var router_node = create_node(router_id).position(position).label(label).width(node_width).height(node_height).classes(classes);
                 eles.push(router_node.toObject());
@@ -178,6 +194,6 @@
         return eles;
     };
 
-    iida.appdata.logical_elements = create_logical_elements();
+    iida.appdata.logical_elements = create_elements();
 
 })();

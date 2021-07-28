@@ -211,6 +211,6 @@
 
     ];
 
-    iida.appdata.physical_routers = iida.appdata.physical_routers.concat(routers);
+    Array.prototype.push.apply(iida.appdata.physical_routers, routers);
 
 })();

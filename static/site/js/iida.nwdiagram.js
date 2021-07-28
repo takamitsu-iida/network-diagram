@@ -217,8 +217,6 @@
             CyData.set_data(cy, event.target.value);
         });
 
-
-
     };
     //
 })();
