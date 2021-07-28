@@ -1,19 +1,17 @@
 /* global iida */
 
 (function () {
-
     iida.appdata.physical_routers = iida.appdata.physical_routers || [];
 
-    var x, y, y_interval;
+    var x, y;
+    var x_interval = y_interval = 200;
     var routers;
 
-    x = 1200;
-    y = 400;
-    y_interval = 200;
-
+    x = 0;
+    y = 3;
     routers = [
         {
-            'position': { 'x': x, 'y': y + y_interval*0 },
+            'position': { 'x': x * x_interval, 'y': y * y_interval },
             'id': "C棟コアルータ#1",
             'label': "C棟コアルータ#1\nNCS-55A1-36H-B\ntac-his-cr103\nloopback:172.16.11.3\nMgmt 10.100.1.244",
             'width': 200,
@@ -51,9 +49,14 @@
                 }
             ],
         },
+    ];
+    Array.prototype.push.apply(iida.appdata.physical_routers, routers);
 
+    x = 0;
+    y = 4;
+    routers = [
         {
-            'position': { 'x': x, 'y': y + y_interval*1 },
+            'position': { 'x': x * x_interval, 'y': y * y_interval },
             'id': "C棟コアルータ#2",
             'label': "C棟コアルータ#2\nNCS-55A1-36H-B\ntac-his-cr104\nloopback:172.16.11.4\nMgmt 10.100.1.243",
             'drag_with': ["C棟コアルータ#1", "B棟コアルータ#1", "B棟コアルータ#2"],
@@ -96,9 +99,14 @@
             'target': "C棟コアルータ#2Hu0/0/0/22",
             'label': "192.168.19.36/30"
         },
+    ];
+    Array.prototype.push.apply(iida.appdata.physical_routers, routers);
 
+    x = 0;
+    y = 6;
+    routers = [
         {
-            'position': { 'x': x, 'y': y + y_interval*2 },
+            'position': { 'x': x * x_interval, 'y': y * y_interval },
             'id': "B棟コアルータ#1",
             'label': "B棟コアルータ#1\nNCS-55A1-36H-B\ntab-his-cr201\nloopback:172.16.11.1\nMgmt 10.100.1.246",
             'drag_with': ["B棟コアルータ#2", "C棟コアルータ#1", "C棟コアルータ#2"],
@@ -135,9 +143,14 @@
                 },
             ]
         },
+    ];
+    Array.prototype.push.apply(iida.appdata.physical_routers, routers);
 
+    x = 0;
+    y = 7;
+    routers = [
         {
-            'position': { 'x': x, 'y': y + y_interval*3 },
+            'position': { 'x': x * x_interval, 'y': y * y_interval },
             'id': "B棟コアルータ#2",
             'label': "B棟コアルータ#2\nNCS-55A1-36H-B\ntab-his-cr202\nloopback:172.16.11.2\nMgmt 10.100.1.245",
             'drag_with': ["B棟コアルータ#1", "C棟コアルータ#1", "C棟コアルータ#2"],
@@ -210,7 +223,6 @@
         }
 
     ];
-
     Array.prototype.push.apply(iida.appdata.physical_routers, routers);
 
 })();

@@ -1,19 +1,17 @@
 /* global iida */
 
 (function () {
-
     iida.appdata.physical_routers = iida.appdata.physical_routers || [];
 
-    var x, y, y_interval;
+    var x, y;
+    var x_interval = y_interval = 200;
     var routers;
 
-    x = 1500;
-    y = 300;
-    y_interval = 200;
-
+    x = 2;
+    y = 1;
     routers = [
         {
-            'position': { 'x': x, 'y': y + y_interval*0 },
+            'position': { 'x': x * x_interval, 'y': y * y_interval },
             'id': "C棟サービス収容ルータ#1",
             'label': "C棟サービス収容ルータ#1\nASR 9901\ntac-his-sr103\nloopback:172.16.13.3\nMgmt 10.100.1.240",
             'drag_with': ["C棟サービス収容ルータ#2"],
@@ -71,10 +69,14 @@
             'label': "Bundle-Ether1010",
             'classes': ['parent']
         },
+    ];
+    Array.prototype.push.apply(iida.appdata.physical_routers, routers);
 
-
+    x = 2;
+    y = 2;
+    routers = [
         {
-            'position': { 'x': x, 'y': y + y_interval*1 },
+            'position': { 'x': x * x_interval, 'y': y * y_interval },
             'id': "C棟サービス収容ルータ#2",
             'label': "C棟サービス収容ルータ#2\nASR 9901\ntac-his-sr104\nloopback:172.16.13.4\nMgmt 10.100.1.239\n",
             'drag_with': ["C棟サービス収容ルータ#1"],
@@ -133,7 +135,6 @@
         },
 
     ];
-
     Array.prototype.push.apply(iida.appdata.physical_routers, routers);
 
 })();
