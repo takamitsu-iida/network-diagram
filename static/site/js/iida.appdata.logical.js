@@ -80,11 +80,11 @@
             if (!_) {
                 return this;
             }
-            if (typeof(_) === 'string') {
+            if (typeof (_) === 'string') {
                 _ = _.split(",");
             }
-            Array.prototype.push.apply(_classes, _);
-            _classes = _classes.filter((elem, index, self) => self.indexOf(elem) === index);
+            // replace _classes
+            _classes = _;
             return this;
         };
 
@@ -153,9 +153,10 @@
             if (!_) {
                 return this;
             }
-            if (typeof(_) === 'string') {
+            if (typeof (_) === 'string') {
                 _ = _.split(",");
             }
+            // append classes
             Array.prototype.push.apply(_classes, _);
             _classes = _classes.filter((elem, index, self) => self.indexOf(elem) === index);
             return this;
@@ -175,7 +176,8 @@
                 var source = element.source;
                 var target = element.target;
                 var label = element.label || "";
-                var edge = create_edge(source + target).source(source).target(target).label(label);
+                var classes = element.classes || [];
+                var edge = create_edge(source + target).source(source).target(target).label(label).classes(classes);
                 eles.push(edge.toObject());
             } else {
                 var position = element.position || { x: 0, y: 0 };
@@ -195,5 +197,50 @@
     };
 
     iida.appdata.logical_elements = create_elements();
+
+    //
+    // fcose option
+    // https://github.com/iVis-at-Bilkent/cytoscape.js-fcose
+    //
+    iida.appdata.logical_fcose_option = {
+        name: "fcose",
+        quality: "default",
+        randomize: true,
+        animate: true,
+        animationDuration: 1000,
+        animationEasing: "ease",
+        fit: true,
+        padding: 30,
+
+        // Separation amount between nodes
+        nodeSeparation: 150,
+
+        // Ideal edge (non nested) length
+        idealEdgeLength: edge => 150,
+
+        // Fix desired nodes to predefined positions
+        // [{nodeId: 'n1', position: {x: 100, y: 200}}, {...}]
+        fixedNodeConstraint: undefined,
+
+        // Align desired nodes in vertical/horizontal direction
+        // {vertical: [['n1', 'n2'], [...]], horizontal: [['n2', 'n4'], [...]]}
+        alignmentConstraint: {
+            'vertical': [
+                ["C棟コアルータ#1", "C棟コアルータ#2"],
+                ["B棟コアルータ#1", "B棟コアルータ#2"],
+                ["C棟ユーザ収容ルータ#1", "C棟ユーザ収容ルータ#2"],
+                ["C棟ユーザ収容ルータ#3", "C棟ユーザ収容ルータ#4"],
+                ["B棟ユーザ収容ルータ#1", "B棟ユーザ収容ルータ#2"],
+                ["B棟ユーザ収容ルータ#3", "B棟ユーザ収容ルータ#4"],
+                ["B棟サービス収容ルータ#1", "B棟サービス収容ルータ#2"],
+                ["C棟サービス収容ルータ#1", "C棟サービス収容ルータ#2"] ],
+        },
+
+        // Place two nodes relatively in vertical/horizontal direction
+        // [{top: 'n1', bottom: 'n2', gap: 100}, {left: 'n3', right: 'n4', gap: 75}, {...}]
+        relativePlacementConstraint: undefined,
+
+    };
+
 
 })();

@@ -77,7 +77,7 @@
             },
 
             {
-                'selector': ".parent",
+                'selector': ".bundle_ether",
                 'style': {
                     'shape': "rectangle",
                     'label': "data(label)",
@@ -129,6 +129,12 @@
                 }
             },
 
+            {
+                selector: '.loop',
+                style: {
+                    'control-point-step-size': 90,
+                }
+            },
 
             {
                 'selector': ".img_router",
@@ -156,6 +162,33 @@
             },
             style: basic_style,
             elements: iida.appdata.physical_elements
+        });
+
+        // add the panzoom control
+        cy.panzoom({
+            zoomFactor: 0.05, // zoom factor per zoom tick
+            zoomDelay: 45, // how many ms between zoom ticks
+            minZoom: 0.1, // min zoom level
+            maxZoom: 10, // max zoom level
+            fitPadding: 50, // padding when fitting
+            panSpeed: 10, // how many ms in between pan ticks
+            panDistance: 10, // max pan distance per tick
+            panDragAreaSize: 75, // the length of the pan drag box in which the vector for panning is calculated (bigger = finer control of pan speed and direction)
+            panMinPercentSpeed: 0.25, // the slowest speed we can pan by (as a percent of panSpeed)
+            panInactiveArea: 8, // radius of inactive area in pan drag box
+            panIndicatorMinOpacity: 0.5, // min opacity of pan indicator (the draggable nib); scales from this to 1.0
+            zoomOnly: false, // a minimal version of the ui only with zooming (useful on systems with bad mousewheel resolution)
+            fitSelector: undefined, // selector of elements to fit
+            animateOnFit: function () { // whether to animate on fit
+                return false;
+            },
+            fitAnimationDuration: 1000, // duration of animation on fit
+
+            // icon class names
+            sliderHandleIcon: 'fa fa-minus',
+            zoomInIcon: 'fa fa-plus',
+            zoomOutIcon: 'fa fa-minus',
+            resetIcon: 'fa fa-expand'
         });
 
         // on grab, all router node save own position
@@ -209,7 +242,7 @@
                 return node.animation({
                     position: get_initial_position(node),
                     duration: 1000,
-                    easing: 'ease'
+                    easing: "ease"
                 }).play().promise();
             }));
         };
@@ -220,13 +253,25 @@
                     animate_to_initial_position();
                     return;
                 }
+
+                if (layout_name === 'fcose') {
+                    if (iida.appdata.current === "logical") {
+                        cy.layout(iida.appdata.logical_fcose_option).run();
+                    }
+                    return;
+                }
+
                 var layout = {
                     name: layout_name,
                     fit: true,
                     animate: true,
                 };
-                // cy.layout(layout).run();
-                cy.$('.router').layout(layout).run();
+
+                if (iida.appdata.current === "physical") {
+                    cy.$('.router').layout(layout).run();
+                } else if (iida.appdata.current === "logical") {
+                    cy.layout(layout).run();
+                }
             };
             return {
                 set_layout: _set_layout
@@ -239,12 +284,8 @@
 
         var CyData = (function () {
             var _set_data = function (cy, data_name) {
-                var eles = [];
-                if (data_name === 'physical') {
-                    eles = iida.appdata.physical_elements;
-                } else if (data_name === 'logical') {
-                    eles = iida.appdata.logical_elements;
-                }
+                iida.appdata.current = data_name;
+                var eles = iida.appdata.get_elements();
                 cy.elements().remove();
                 cy.add(eles);
             };

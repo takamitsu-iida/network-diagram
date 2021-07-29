@@ -108,11 +108,13 @@
         {
             'source': "C棟ユーザ収容ルータ#1",
             'target': "C棟ユーザ収容ルータ#1",
+            'classes': ["loop"]
         },
 
         {
             'source': "C棟ユーザ収容ルータ#2",
             'target': "C棟ユーザ収容ルータ#2",
+            'classes': ["loop"]
         },
 
         {

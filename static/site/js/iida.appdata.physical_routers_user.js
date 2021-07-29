@@ -82,7 +82,7 @@
         {
             '__COMMENT__': "ポートを網掛けするためのparent",
             'id': "C棟ユーザ収容ルータ#1#2Bundle-Ether1000",
-            'classes': ['parent']
+            'classes': ['bundle_ether']
         },
     ];
     Array.prototype.push.apply(iida.appdata.physical_routers, routers);
@@ -202,7 +202,7 @@
         {
             '__COMMENT__': "ポートを網掛けするためのparent",
             'id': "C棟ユーザ収容ルータ#3#4Bundle-Ether1000",
-            'classes': ['parent']
+            'classes': ['bundle_ether']
         },
     ];
     Array.prototype.push.apply(iida.appdata.physical_routers, routers);
@@ -286,7 +286,7 @@
         {
             '__COMMENT__': "ポートを網掛けするためのparent",
             'id': "B棟ユーザ収容ルータ#1#2Bundle-Ether1000",
-            'classes': ['parent']
+            'classes': ['bundle_ether']
         },
     ];
     Array.prototype.push.apply(iida.appdata.physical_routers, routers);
@@ -370,7 +370,7 @@
         {
             '__COMMENT__': "ポートを網掛けするためのparent",
             'id': "B棟ユーザ収容ルータ#3#4Bundle-Ether1000",
-            'classes': ['parent']
+            'classes': ['bundle_ether']
         },
     ];
     Array.prototype.push.apply(iida.appdata.physical_routers, routers);

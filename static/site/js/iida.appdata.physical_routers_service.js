@@ -67,7 +67,7 @@
             '__COMMENT__': "ポートを網掛けするためのparent",
             'id': "C棟サービス収容ルータ#1#2Bundle-Ether1010",
             'label': "Bundle-Ether1010",
-            'classes': ['parent']
+            'classes': ['bundle_ether']
         },
     ];
     Array.prototype.push.apply(iida.appdata.physical_routers, routers);
@@ -184,7 +184,7 @@
             '__COMMENT__': "ポートを網掛けするためのparent",
             'id': "B棟サービス収容ルータ#1#2Bundle-Ether1009",
             'label': "Bundle-Ether1009",
-            'classes': ['parent']
+            'classes': ['bundle_ether']
         },
 
         {

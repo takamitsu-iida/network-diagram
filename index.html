@@ -17,10 +17,18 @@
   <!-- cytoscape.js -->
   <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 
+  <script src="https://unpkg.com/cytoscape-panzoom/cytoscape-panzoom.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/cytoscape-panzoom/cytoscape.js-panzoom.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/cytoscape-panzoom/font-awesome-4.0.3/css/font-awesome.min.css" />
+
   <!-- automove -->
   <!--
     <script src="https://unpkg.com/cytoscape-automove/cytoscape-automove.js"></script>
-    -->
+  -->
+
+  <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+  <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+  <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
 
   <!-- iida.startup.js -->
   <script type="text/javascript" src="./static/site/js/iida.startup.js"></script>
@@ -54,6 +62,7 @@
               <option value="circle">circle</option>
               <option value="concentric">concentric</option>
               <option value="breadthfirst">breadthfirst</option>
+              <option value="fcose">fcose</option>
             </select>
           </td>
         </tr>

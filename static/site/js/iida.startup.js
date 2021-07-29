@@ -9,6 +9,20 @@
     // network diagram data should be here
     var appdata = {};
 
+    appdata.current = "physical";  // or "logical"
+    appdata.physical_routers = [];  // original data
+    appdata.physical_elements = [];  // calculated elements for cytoscape.js
+    appdata.logical_routers = [];  // original data
+    appdata.logical_elements = [];  // calculated elements for cytoscape.js
+    appdata.get_elements = function () {
+      if (iida.appdata.current === "physical") {
+        return iida.appdata.physical_elements;
+      }
+      if (iida.appdata.current === "logical") {
+        return iida.appdata.logical_elements;
+      }
+    };
+
     return {
       'appdata': appdata
     };
