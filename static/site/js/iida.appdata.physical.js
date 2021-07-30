@@ -219,6 +219,7 @@
         var _id = id;
         var _source;
         var _target;
+        var _weight = 1;
         var _label = "";
         var _classes = ['autorotate'];
 
@@ -232,6 +233,7 @@
                     'id': _id,
                     'source': _source,
                     'target': _target,
+                    'weight': _weight,
                     'label': _label
                 },
                 'classes': _classes
@@ -265,6 +267,14 @@
                 return _label;
             }
             _label = _;
+            return this;
+        };
+
+        exports.weight = function (_) {
+            if (!arguments.length) {
+                return _weight;
+            }
+            _weight = _;
             return this;
         };
 

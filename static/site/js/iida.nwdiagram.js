@@ -29,6 +29,17 @@
             },
 
             {
+                'selector': ".highlighted",
+                'style': {
+                    'background-color': "#a9a9a9",
+                    'line-color': '#0000ff',
+                    'width': 5,
+                    'transition-property': "background-color, line-color",
+                    'transition-duration': "0.5s"
+                }
+            },
+
+            {
                 'selector': ".physical_router",
                 'style': {
                     'border-color': "#000",
@@ -161,7 +172,7 @@
                 name: 'preset'
             },
             style: basic_style,
-            elements: iida.appdata.physical_elements
+            elements: iida.appdata.logical_elements
         });
 
         // add the panzoom control
@@ -278,7 +289,8 @@
             };
         })();
 
-        document.getElementById('Layout').addEventListener('change', function (event) {
+        document.getElementById('idLayout').addEventListener('change', function (event) {
+            console.log("change layout: " + event.target.value);
             CyLayout.set_layout(cy, event.target.value);
         });
 
@@ -294,9 +306,93 @@
             };
         })();
 
-        document.getElementById('Data').addEventListener('change', function (event) {
+        document.getElementById('idData').addEventListener('change', function (event) {
             CyData.set_data(cy, event.target.value);
         });
+
+        document.getElementById('idDijkstra').addEventListener('click', function (event) {
+            var start_node_radio = document.getElementsByName('start_node');
+            var end_node_radio = document.getElementsByName('end_node');
+            var len;
+            var start_node = '';
+            var end_node = '';
+
+            len = start_node_radio.length;
+            for (let i = 0; i < len; i++) {
+                if (start_node_radio.item(i).checked) {
+                    start_node = start_node_radio.item(i).value;
+                }
+            }
+            console.log('start: ' + start_node);
+
+            len = end_node_radio.length;
+            for (let i = 0; i < len; i++) {
+                if (end_node_radio.item(i).checked) {
+                    end_node = end_node_radio.item(i).value;
+                }
+            }
+            console.log('end: ' + end_node);
+
+            if (start_node !== end_node) {
+                start_node = cy.filter('node[id="' + start_node + '"]');
+                end_node = cy.filter('node[id="' + end_node + '"]');
+                ShortestPath.clear(cy);
+                ShortestPath.dijkstra(cy, start_node, end_node);
+            }
+
+//            var start = document.getElementById('idStartNode').value;
+//            var end = document.getElementById('idEndNode').value;
+//
+//            start = cy.filter('node[id="' + start + '"]');
+//            end = cy.filter('node[id="' + end + '"]');
+//            if (start && end) {
+//                ShortestPath.dijkstra(cy, start, end);
+//            }
+        });
+
+        document.getElementById('idDijkstraClear').addEventListener('click', function (event) {
+            ShortestPath.clear(cy);
+        });
+
+        var ShortestPath = (function () {
+            var _dijkstra = function (cy, start_node, end_node) {
+                // eles.dijkstra( options )
+                //   options
+                //      root: The root node (selector or collection) where the algorithm starts.
+                //      weight: function(edge) [optional] A function that returns the positive numeric weight for the edge. The weight indicates the cost of going from one node to another node.
+                //      directed: [optional] A boolean indicating whether the algorithm should only go along edges from source to target (default false).
+                var dijkstra = cy.elements().dijkstra(start_node, function (node) {
+                    return node.data('weight');
+                }, false);
+
+                var x = 0;
+                var bfs = dijkstra.pathTo(end_node);
+                var highlightNextEle = function () {
+                    var el = bfs[x];
+                    if (el) {
+                        console.log(el);
+                        console.log(el.data('id'));
+                        el.addClass('highlighted');
+                    }
+                    if (x < bfs.length) {
+                        x++;
+                        setTimeout(highlightNextEle, 500);
+                    }
+                };
+
+                highlightNextEle();
+            }
+
+            var _clear = function (cy) {
+                cy.elements().removeClass('highlighted');
+            }
+
+            return {
+                dijkstra: _dijkstra,
+                clear: _clear
+            }
+        })();
+
 
     };
     //

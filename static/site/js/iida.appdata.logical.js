@@ -98,6 +98,7 @@
         var _source;
         var _target;
         var _label = "";
+        var _weight = 1;
         var _classes = ['autorotate'];
 
         function exports() {
@@ -110,7 +111,8 @@
                     'id': _id,
                     'source': _source,
                     'target': _target,
-                    'label': _label
+                    'label': _label,
+                    'weight': 1
                 },
                 'classes': _classes
             }
@@ -143,6 +145,14 @@
                 return _label;
             }
             _label = _;
+            return this;
+        };
+
+        exports.weight = function (_) {
+            if (!arguments.length) {
+                return _weight;
+            }
+            _weight = _;
             return this;
         };
 
@@ -204,12 +214,12 @@
     //
     iida.appdata.logical_fcose_option = {
         name: "fcose",
-        quality: "default",
-        randomize: true,
+        quality: "proof",  // "default",
+        randomize: false,  // true,
         animate: true,
         animationDuration: 1000,
         animationEasing: "ease",
-        fit: true,
+        fit: false,  // default is true
         padding: 30,
 
         // Separation amount between nodes
@@ -228,17 +238,24 @@
             'vertical': [
                 ["C棟コアルータ#1", "C棟コアルータ#2"],
                 ["B棟コアルータ#1", "B棟コアルータ#2"],
-                ["C棟ユーザ収容ルータ#1", "C棟ユーザ収容ルータ#2"],
-                ["C棟ユーザ収容ルータ#3", "C棟ユーザ収容ルータ#4"],
-                ["B棟ユーザ収容ルータ#1", "B棟ユーザ収容ルータ#2"],
-                ["B棟ユーザ収容ルータ#3", "B棟ユーザ収容ルータ#4"],
+                ["C棟ユーザ収容ルータ#1", "C棟ユーザ収容ルータ#2", "C棟ユーザ収容ルータ#3", "C棟ユーザ収容ルータ#4"],
+                ["B棟ユーザ収容ルータ#1", "B棟ユーザ収容ルータ#2", "B棟ユーザ収容ルータ#3", "B棟ユーザ収容ルータ#4"],
                 ["B棟サービス収容ルータ#1", "B棟サービス収容ルータ#2"],
                 ["C棟サービス収容ルータ#1", "C棟サービス収容ルータ#2"] ],
         },
 
         // Place two nodes relatively in vertical/horizontal direction
         // [{top: 'n1', bottom: 'n2', gap: 100}, {left: 'n3', right: 'n4', gap: 75}, {...}]
-        relativePlacementConstraint: undefined,
+        relativePlacementConstraint: [
+            {'left': "C棟ユーザ収容ルータ#1", 'right': "C棟コアルータ#1", 'gap': 300 },
+            {'left': "C棟コアルータ#1", 'right': "C棟サービス収容ルータ#1", 'gap': 300 },
+            {'left': "B棟ユーザ収容ルータ#1", 'right': "B棟コアルータ#1", 'gap': 300 },
+            {'left': "B棟コアルータ#1", 'right': "B棟サービス収容ルータ#1", 'gap': 300 },
+            {'top': "C棟コアルータ#1", 'bottom': "C棟コアルータ#2", 'gap': 300},
+            {'top': "C棟コアルータ#2", 'bottom': "B棟コアルータ#1", 'gap': 500},
+            {'top': "B棟コアルータ#1", 'bottom': "B棟コアルータ#2", 'gap': 300},
+        ],
+
 
     };
 
