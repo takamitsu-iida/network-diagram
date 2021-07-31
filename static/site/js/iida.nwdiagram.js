@@ -29,13 +29,13 @@
             },
 
             {
-                'selector': ".highlighted",
+                'selector': "edge.highlighted",
                 'style': {
-                    'background-color': "#a9a9a9",
                     'line-color': '#0000ff',
                     'width': 5,
-                    'transition-property': "background-color, line-color",
-                    'transition-duration': "0.5s"
+                    // 'background-color': "#a9a9a9",
+                    // 'transition-property': "background-color, line-color",
+                    // 'transition-duration': "0.5s"
                 }
             },
 
@@ -137,6 +137,14 @@
                     'text-halign': "center",
                     'opacity': 0.8,
                     'border-opacity': 1.0,
+                }
+            },
+
+            {
+                'selector': ".router.highlighted",
+                'style': {
+                    'border-color': "#0000ff",
+                    'border-width': 5,
                 }
             },
 
@@ -344,21 +352,23 @@
                     return node.data('weight');
                 }, false);
 
-                var x = 0;
-                var bfs = dijkstra.pathTo(end_node);
-                var highlightNextEle = function () {
-                    var el = bfs[x];
-                    if (el && el.isEdge()) {
+                var results = dijkstra.pathTo(end_node);
+
+                var step = 0;
+                var highlight_next = function () {
+                    var el = results[step];
+                    if (el/* && el.isEdge()*/) {
+                        // console.log(el.id());
                         el.addClass('highlighted');
                     }
-                    if (x < bfs.length) {
-                        x++;
-                        // setTimeout(highlightNextEle, 500);
-                        highlightNextEle();
+                    if (step < results.length) {
+                        step++;
+                        // setTimeout(highlight_next, 500);
+                        highlight_next();
                     }
                 };
 
-                highlightNextEle();
+                highlight_next();
             }
 
             var _clear = function (cy) {
@@ -441,7 +451,6 @@
             start_end_matrix.appendChild(table);
         };
 
-
         var dijkstra_start_all = document.getElementById('idStartStop');
         if (dijkstra_start_all) {
             dijkstra_start_all.addEventListener('change', function () {
@@ -483,13 +492,6 @@
                 if (radio) {
                     radio.checked = true;
                     radio.dispatchEvent(new Event('change'));
-                    /*
-                    var start_end_list = radio.value.split(',');
-                    var start_node = cy.filter('node[id="' + start_end_list[0] + '"]');
-                    var end_node = cy.filter('node[id="' + start_end_list[1] + '"]');
-                    ShortestPath.clear(cy);
-                    ShortestPath.dijkstra(cy, start_node, end_node);
-                    */
                 }
 
                 if (col_index < router_ids.length) {
@@ -513,6 +515,7 @@
                     } else {
                         console.log("done");
                         ShortestPath.is_running = false;
+                        dijkstra_start_all.checked = false;
                     }
                 }
             }
@@ -555,27 +558,35 @@
 
         var set_edge_weight = function () {
             cy.edges().forEach(edge => {
-                for (var result of edge.id().matchAll(/#(\d).*#(\d)/g)) {
-                    switch((result[1] % 2) + (result[2] % 2)) {
+                for (var results of edge.id().matchAll(/#(\d).*#(\d)/g)) {
+                    switch ((results[1] % 2) + (results[2] % 2)) {
                         case 0:
                             // #2-#2 従-従 0+0=0
-                            edge.data('weight', Number(cost_2_2.value));
+                            edge.data('weight', parseInt(cost_2_2.value));
                             break;
                         case 1:
                             // #1-#2 主-従 1+0=1
-                            edge.data('weight', Number(cost_1_2.value));
+                            edge.data('weight', parseInt(cost_1_2.value));
                             break;
                         case 2:
                             // #1-#1 主-主 1+1=2
-                            edge.data('weight', Number(cost_1_1.value));
+                            edge.data('weight', parseInt(cost_1_1.value));
                             break;
                     }
-
-                    console.log(edge.id() + " " + edge.data('weight'));
-
                 }
+                dijkstra_restart();
             });
         };
+
+        var dijkstra_restart = function () {
+            var radios = document.getElementsByName('start_end_matrix');
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    radios[i].dispatchEvent(new Event('change'));
+                    break;
+                }
+            }
+        }
 
     };
     //
