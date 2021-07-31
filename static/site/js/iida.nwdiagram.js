@@ -193,9 +193,21 @@
                 boxSelectionEnabled: false,
                 autounselectify: true,
                 layout: {
-                    name: 'breadthfirst'
+                    name: 'breadthfirst',
+                    directed: false,
+                    padding: 10
                 },
-                style: basic_style,
+                style: cytoscape.stylesheet()
+                    .selector('node')
+                    .css({
+                        'background-color': '#6272A3',
+                        'shape': 'rectangle',
+                    })
+                    .selector('edge')
+                    .css({
+                        'line-color': '#B1C1F2',
+                        'target-arrow-color': '#B1C1F2',
+                    }),
                 elements: []
             });
         }
@@ -373,6 +385,7 @@
 
                 cy2.elements().remove();
                 cy2.add(results);
+                cy2.layout({name: "grid", directed: false }).run();
 
                 var step = 0;
                 var highlight_next = function () {
