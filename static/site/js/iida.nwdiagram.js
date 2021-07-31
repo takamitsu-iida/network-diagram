@@ -183,6 +183,23 @@
             elements: iida.appdata.get_elements()
         });
 
+        var cy2 = {};
+        var cy2_container = document.getElementById('cy2');
+        if (cy2_container) {
+            cy2 = window.cy2 = cytoscape({
+                container: cy2_container,
+                minZoom: 0.5,
+                maxZoom: 3,
+                boxSelectionEnabled: false,
+                autounselectify: true,
+                layout: {
+                    name: 'breadthfirst'
+                },
+                style: basic_style,
+                elements: []
+            });
+        }
+
         // add the panzoom control
         cy.panzoom({
             zoomFactor: 0.05, // zoom factor per zoom tick
@@ -349,10 +366,13 @@
                 //      weight: function(edge) [optional] A function that returns the positive numeric weight for the edge. The weight indicates the cost of going from one node to another node.
                 //      directed: [optional] A boolean indicating whether the algorithm should only go along edges from source to target (default false).
                 var dijkstra = cy.elements().dijkstra(start_node, function (node) {
-                    return node.data('weight');
+                    return parseInt(node.data('weight'));
                 }, false);
 
                 var results = dijkstra.pathTo(end_node);
+
+                cy2.elements().remove();
+                cy2.add(results);
 
                 var step = 0;
                 var highlight_next = function () {

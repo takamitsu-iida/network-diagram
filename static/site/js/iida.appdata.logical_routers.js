@@ -34,7 +34,8 @@
         {
             'source': "C棟コアルータ#1",
             'target': "C棟コアルータ#2",
-            'label': "192.168.19.36/30"
+            'label': "192.168.19.36/30",
+            'weight': 1
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -66,17 +67,20 @@
         {
             'source': "B棟コアルータ#1",
             'target': "B棟コアルータ#2",
-            'label': "192.168.19.32/30"
+            'label': "192.168.19.32/30",
+            'weight': 1
         },
 
         {
             'source': "C棟コアルータ#1",
-            'target': "B棟コアルータ#1"
+            'target': "B棟コアルータ#1",
+            'weight': 1
         },
 
         {
             'source': "C棟コアルータ#2",
-            'target': "B棟コアルータ#2"
+            'target': "B棟コアルータ#2",
+            'weight': 5
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -108,31 +112,36 @@
         {
             'source': "C棟ユーザ収容ルータ#1",
             'target': "C棟ユーザ収容ルータ#1",
-            'classes': ["loop"]
+            'classes': ["loop"],
+            'weight': 1
         },
 
         {
             'source': "C棟ユーザ収容ルータ#2",
             'target': "C棟ユーザ収容ルータ#2",
-            'classes': ["loop"]
+            'classes': ["loop"],
+            'weight': 1
         },
 
         {
             'source': "C棟ユーザ収容ルータ#1",
             'target': "C棟ユーザ収容ルータ#2",
-            'label': "192.168.14.44/30"
+            'label': "192.168.14.44/30",
+            'weight': 1
         },
 
         {
             'source': "C棟コアルータ#1",
             'target': "C棟ユーザ収容ルータ#1",
-            'label': "192.168.10.88/30"
+            'label': "192.168.10.88/30",
+            'weight': 1
         },
 
         {
             'source': "C棟コアルータ#2",
             'target': "C棟ユーザ収容ルータ#2",
-            'label': "192.168.10.92/30"
+            'label': "192.168.10.92/30",
+            'weight': 5
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -164,19 +173,22 @@
         {
             'source': "C棟ユーザ収容ルータ#3",
             'target': "C棟ユーザ収容ルータ#4",
-            'label': "192.168.14.48/30"
+            'label': "192.168.14.48/30",
+            'weight': 1
         },
 
         {
             'source': "C棟ユーザ収容ルータ#3",
             'target': "C棟コアルータ#1",
-            'label': "192.168.10.96/30"
+            'label': "192.168.10.96/30",
+            'weight': 1
         },
 
         {
             'source': "C棟ユーザ収容ルータ#4",
             'target': "C棟コアルータ#2",
-            'label': "192.168.10.100/30"
+            'label': "192.168.10.100/30",
+            'weight': 5
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -208,19 +220,22 @@
         {
             'source': "B棟ユーザ収容ルータ#1",
             'target': "B棟ユーザ収容ルータ#2",
-            'label': "192.168.14.0/30"
+            'label': "192.168.14.0/30",
+            'weight': 1
         },
 
         {
             'source': "B棟ユーザ収容ルータ#1",
             'target': "B棟コアルータ#1",
-            'label': "192.168.10.0/30"
+            'label': "192.168.10.0/30",
+            'weight': 1
         },
 
         {
             'source': "B棟ユーザ収容ルータ#2",
             'target': "B棟コアルータ#2",
-            'label': "192.168.10.4/30"
+            'label': "192.168.10.4/30",
+            'weight': 5
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -252,19 +267,22 @@
         {
             'source': "B棟ユーザ収容ルータ#3",
             'target': "B棟ユーザ収容ルータ#4",
-            'label': "192.168.14.4/30"
+            'label': "192.168.14.4/30",
+            'weight': 1
         },
 
         {
             'source': "B棟ユーザ収容ルータ#3",
             'target': "B棟コアルータ#1",
-            'label': "192.168.10.8/30"
+            'label': "192.168.10.8/30",
+            'weight': 1
         },
 
         {
             'source': "B棟ユーザ収容ルータ#4",
             'target': "B棟コアルータ#2",
-            'label': "192.168.10.12/30"
+            'label': "192.168.10.12/30",
+            'weight': 5
         },
 
     ];
@@ -284,7 +302,8 @@
         {
             'source': "C棟サービス収容ルータ#1",
             'target': "C棟コアルータ#1",
-            'label': "192.168.16.8/30"
+            'label': "192.168.16.8/30",
+            'weight': 1
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -303,13 +322,15 @@
         {
             'source': "C棟サービス収容ルータ#2",
             'target': "C棟コアルータ#2",
-            'label': "192.168.16.12/30"
+            'label': "192.168.16.12/30",
+            'weight': 5
         },
 
         {
             'source': "C棟サービス収容ルータ#2",
             'target': "C棟サービス収容ルータ#1",
-            'label': "192.168.18.4/30"
+            'label': "192.168.18.4/30",
+            'weight': 1
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -328,7 +349,8 @@
         {
             'source': "B棟サービス収容ルータ#1",
             'target': "B棟コアルータ#1",
-            'label': "192.168.16.0/30"
+            'label': "192.168.16.0/30",
+            'weight': 1
         },
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);
@@ -347,12 +369,14 @@
         {
             'source': "B棟サービス収容ルータ#2",
             'target': "B棟コアルータ#2",
-            'label': "192.168.16.4/30"
+            'label': "192.168.16.4/30",
+            'weight': 5
         },
 
         {
             'source': "B棟サービス収容ルータ#2",
             'target': "B棟サービス収容ルータ#1",
+            'weight': 1
         }
     ];
     Array.prototype.push.apply(iida.appdata.logical_routers, routers);

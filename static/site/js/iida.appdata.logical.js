@@ -112,7 +112,7 @@
                     'source': _source,
                     'target': _target,
                     'label': _label,
-                    'weight': 1
+                    'weight': _weight
                 },
                 'classes': _classes
             }
@@ -187,8 +187,9 @@
                 var source = element.source;
                 var target = element.target;
                 var label = element.label || "";
+                var weight = element.weight || 1;
                 var classes = element.classes || [];
-                var edge = create_edge(source + target).source(source).target(target).label(label).classes(classes);
+                var edge = create_edge(source + target).source(source).target(target).label(label).weight(weight).classes(classes);
                 eles.push(edge.toObject());
             } else {
                 var position = element.position || { x: 0, y: 0 };

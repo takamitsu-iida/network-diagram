@@ -36,17 +36,17 @@ body {
 
 
 .right_top_panel {
+    /* cyの親 */
     grid-row: 1;
     grid-column: 2;
-    height: 200px;
+    height: calc(100vh - 200px - 50px);
     border: 1px solid #aaa;
 }
 
 .right_bottom_panel {
-    /* cyの親 */
     grid-row: 2;
     grid-column: 2;
-    height: calc(100vh - 200px - 50px);
+    height: 200px;
 }
 
 #cy {
