@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <title>network diagram</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="stylesheet" type="text/css" href="./static/site/css/iida.css" />
+
+  <!-- jQuery -->
+  <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+
+  <!-- cytoscape.js -->
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+  <script src="https://unpkg.com/cytoscape-panzoom/cytoscape-panzoom.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/cytoscape-panzoom/cytoscape.js-panzoom.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/cytoscape-panzoom/font-awesome-4.0.3/css/font-awesome.min.css" />
+
+  <!-- automove -->
+  <!--
+    <script src="https://unpkg.com/cytoscape-automove/cytoscape-automove.js"></script>
+  -->
+
+  <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+  <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+  <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
+
+  <!-- iida.startup.js -->
+  <script type="text/javascript" src="./static/site/js/iida.startup.js"></script>
+
+  <!-- iida.appdata -->
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_core.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_service.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_user.js"></script>
+  <script type="text/javascript" src="./static/site/js/iida.appdata.physical.js"></script>
+
+  <!-- iida.nwdiagram.js -->
+  <script type="text/javascript" src="./static/site/js/iida.nwdiagram.js"></script>
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="left_panel">
+      <input id="idInitialPosition" , type="button" value="初期位置">
+    </div>
+
+    <div class="right_panel">
+      <div id="cy"></div>
+    </div>
+  </div>
+
+</body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", iida.main)
+</script>
+
+</html>

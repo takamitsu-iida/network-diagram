@@ -3,301 +3,145 @@
 <html lang="ja">
 
 <head>
-  <title>network diagram</title>
+    <title>network diagram</title>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <link rel="stylesheet" type="text/css" href="./static/site/css/iida.css" />
+    <link rel="stylesheet" type="text/css" href="./static/site/css/iida.css" />
 
-  <!-- jQuery -->
-  <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
 
-  <!-- cytoscape.js -->
-  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+    <!-- cytoscape.js -->
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 
-  <script src="https://unpkg.com/cytoscape-panzoom/cytoscape-panzoom.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/cytoscape-panzoom/cytoscape.js-panzoom.css" />
-  <link rel="stylesheet" type="text/css"
-    href="https://unpkg.com/cytoscape-panzoom/font-awesome-4.0.3/css/font-awesome.min.css" />
+    <script src="https://unpkg.com/cytoscape-panzoom/cytoscape-panzoom.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/cytoscape-panzoom/cytoscape.js-panzoom.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/cytoscape-panzoom/font-awesome-4.0.3/css/font-awesome.min.css" />
 
-  <!-- automove -->
-  <!--
+    <!-- automove -->
+    <!--
     <script src="https://unpkg.com/cytoscape-automove/cytoscape-automove.js"></script>
   -->
 
-  <script src="https://unpkg.com/layout-base/layout-base.js"></script>
-  <script src="https://unpkg.com/cose-base/cose-base.js"></script>
-  <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
+    <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+    <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+    <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
 
-  <!-- iida.startup.js -->
-  <script type="text/javascript" src="./static/site/js/iida.startup.js"></script>
+    <!-- iida.startup.js -->
+    <script type="text/javascript" src="./static/site/js/iida.startup.js"></script>
 
-  <!-- iida.appdata -->
-  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_core.js"></script>
-  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_service.js"></script>
-  <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_user.js"></script>
-  <script type="text/javascript" src="./static/site/js/iida.appdata.physical.js"></script>
-  <script type="text/javascript" src="./static/site/js/iida.appdata.logical_routers.js"></script>
-  <script type="text/javascript" src="./static/site/js/iida.appdata.logical.js"></script>
+    <!-- iida.appdata -->
+    <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_core.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_service.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.physical_routers_user.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.physical.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.logical_routers.js"></script>
+    <script type="text/javascript" src="./static/site/js/iida.appdata.logical.js"></script>
 
-  <!-- iida.nwdiagram.js -->
-  <script type="text/javascript" src="./static/site/js/iida.nwdiagram.js"></script>
+    <!-- iida.nwdiagram.js -->
+    <script type="text/javascript" src="./static/site/js/iida.nwdiagram.js"></script>
 
 </head>
 
 <body>
 
-  <div class="wrapper">
-    <div class="left_panel">
+    <div class="wrapper">
+        <div class="left_panel">
 
-      <table>
-        <tr>
-          <td>
-            <span title="レイアウト変更"> レイアウト変更 </span>
-          </td>
-          <td>
-            <select id="idLayout" name="nameLayout">
-              <option value="preset" selected>preset</option>
-              <option value="fcose">fcose</option>
-              <!--
-              <option value="grid">grid</option>
-              <option value="circle">circle</option>
-              <option value="concentric">concentric</option>
-              <option value="breadthfirst">breadthfirst</option>
-            -->
-            </select>
-          </td>
-        </tr>
+            <table>
+                <tr>
+                    <td><span title="レイアウトアルゴリズムの変更"> レイアウト </span></td>
+                    <td>
+                        <select id="idLayout" name="nameLayout">
+                            <option value="preset" selected>preset</option>
+                            <option value="fcose">fcose</option>
+                            <!--
+                            <option value="grid">grid</option>
+                            <option value="circle">circle</option>
+                            <option value="concentric">concentric</option>
+                            <option value="breadthfirst">breadthfirst</option>
+                            -->
+                        </select>
+                    </td>
+                </tr>
 
-        <tr>
-          <td>
-            <span title="物理構成 or 論理構成"> データ変更 </span>
-          </td>
-          <td>
-            <select id="idData" name="nameData">
-              <option value="logical" selected>論理構成</option>
-              <option value="physical">物理構成</option>
-            </select>
-          </td>
-        </tr>
+                <tr>
+                    <td>-----</td>
+                    <td>-----</td>
+                </tr>
 
-        <tr>
-          <td>
-            <span title="start node"> 起点 </span>
-          </td>
-          <td>
-            <select id="idStartNode" name="nameStartNode">
-              <option value="C棟サービス収容ルータ#1">C棟サービス収容ルータ#1</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span title="end node"> 終点 </span>
-          </td>
-          <td>
-            <select id="idEndNode" name="nameEndNode">
-              <option value="B棟ユーザ収容ルータ#2">B棟ユーザ収容ルータ#2</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span title="Dijkstra"> Dijkstra </span>
-          </td>
-          <td>
-            <input id="idDijkstra" , type="button" value="開始">
-            <input id="idDijkstraClear" , type="button" value="クリア">
-          </td>
-        </tr>
-      </table>
+                <tr>
+                    <td><span title="初期位置に戻す"> 初期位置 </span></td>
+                    <td><input id="idInitialPosition" , type="button" value="戻す"></td>
+                </tr>
 
-      <table style="width: 100%;">
+                <tr>
+                    <td>-----</td>
+                    <td>-----</td>
+                </tr>
 
-        <tr>
-          <td>起点ノード</td>
-          <td>終点ノード</td>
-        </tr>
+                <tr>
+                    <td><span title="最短パスの計算を開始・停止"> 最短パス開始・停止 </span></td>
+                    <td>
+                        <div>
+                            <label class="switch2__label">
+                                <input type="checkbox" class="switch2__input" id="idStartStop" />
+                                <span class="switch2__content"></span>
+                                <span class="switch2__circle"></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
 
-        <tr>
-          <td>
-            <input type="radio" id="S-C-CR-1" value="C棟コアルータ#1" name="start_node" checked><label for="S-C-CR-1">C-CR#1</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-CR-1" value="C棟コアルータ#1" name="end_node"><label for="E-C-CR-1">C-CR#1</label>
-          </td>
-        </tr>
+                <tr>
+                    <td><span title="最短パスの表示を消す">最短パス消去</span></td>
+                    <td><input id="idDijkstraClear" , type="button" value="クリア"></td>
+                </tr>
 
-        <tr>
-          <td>
-            <input type="radio" id="S-C-CR-2" value="C棟コアルータ#2" name="start_node"><label for="S-C-CR-2">C-CR#2</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-CR-2" value="C棟コアルータ#2" name="end_node" checked><label
-              for="E-C-CR-2">C-CR#2</label>
-          </td>
-        </tr>
+                <tr>
+                    <td>-----</td>
+                    <td>-----</td>
+                </tr>
 
-        <tr>
-          <td>
-            <input type="radio" id="S-B-CR-1" value="B棟コアルータ#1" name="start_node"><label for="S-B-CR-1">B-CR#1</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-CR-1" value="B棟コアルータ#1" name="end_node"><label for="E-B-CR-1">B-CR#1</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-B-CR-2" value="B棟コアルータ#2" name="start_node"><label for="S-B-CR-2">B-CR#2</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-CR-2" value="B棟コアルータ#2" name="end_node"><label for="E-B-CR-2">B-CR#2</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-C-UR-1" value="C棟ユーザ収容ルータ#1" name="start_node"><label
-              for="S-C-UR-1">C-UR#1</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-UR-1" value="C棟ユーザ収容ルータ#1" name="end_node"><label for="E-C-UR-1">C-UR#1</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-C-UR-2" value="C棟ユーザ収容ルータ#2" name="start_node"><label
-              for="S-C-UR-2">C-UR#2</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-UR-2" value="C棟ユーザ収容ルータ#2" name="end_node"><label for="E-C-UR-2">C-UR#2</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-C-UR-3" value="C棟ユーザ収容ルータ#3" name="start_node"><label
-              for="S-C-UR-3">C-UR#3</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-UR-3" value="C棟ユーザ収容ルータ#3" name="end_node"><label for="E-C-UR-3">C-UR#3</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-C-UR-4" value="C棟ユーザ収容ルータ#4" name="start_node"><label
-              for="S-C-UR-4">C-UR#4</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-UR-4" value="C棟ユーザ収容ルータ#4" name="end_node"><label for="E-C-UR-4">C-UR#4</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-B-UR-1" value="B棟ユーザ収容ルータ#1" name="start_node"><label
-              for="S-B-UR-1">B-UR#1</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-UR-1" value="B棟ユーザ収容ルータ#1" name="end_node"><label for="E-B-UR-1">B-UR#1</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-B-UR-2" value="B棟ユーザ収容ルータ#2" name="start_node"><label
-              for="S-B-UR-2">B-UR#2</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-UR-2" value="B棟ユーザ収容ルータ#2" name="end_node"><label for="E-B-UR-2">B-UR#2</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-B-UR-3" value="B棟ユーザ収容ルータ#3" name="start_node"><label
-              for="S-B-UR-3">B-UR#3</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-UR-3" value="B棟ユーザ収容ルータ#3" name="end_node"><label for="S-B-UR-3">B-UR#3</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-B-UR-4" value="B棟ユーザ収容ルータ#4" name="start_node"><label
-              for="S-B-UR-4">B-UR#4</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-UR-4" value="B棟ユーザ収容ルータ#4" name="end_node"><label for="E-B-UR-4">B-UR#4</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-C-SR-1" value="C棟サービス収容ルータ#1" name="start_node"><label
-              for="S-C-SR-1">C-SR#1</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-SR-1" value="C棟サービス収容ルータ#1" name="end_node"><label for="E-C-SR-1">C-SR#1</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-C-SR-2" value="C棟サービス収容ルータ#2" name="start_node"><label
-              for="S-C-SR-2">C-SR#2</label>
-          </td>
-          <td>
-            <input type="radio" id="E-C-SR-2" value="C棟サービス収容ルータ#2" name="end_node"><label for="E-C-SR-2">C-SR#2</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-B-SR-1" value="B棟サービス収容ルータ#1" name="start_node"><label
-              for="S-B-SR-1">B-SR#1</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-SR-1" value="B棟サービス収容ルータ#1" name="end_node"><label for="E-B-SR-1">B-SR#1</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <input type="radio" id="S-B-SR-2" value="B棟サービス収容ルータ#2" name="start_node"><label
-              for="S-B-SR-2">B-SR#2</label>
-          </td>
-          <td>
-            <input type="radio" id="E-B-SR-2" value="B棟サービス収容ルータ#2" name="end_node"><label for="E-B-SR-2">B-SR#2</label>
-          </td>
-        </tr>
-
-      </table>
+                <tr>
+                    <td valign="top"><span> コスト#1-#1 </span></td>
+                    <td><input type="range" min="1" max="10" step="1" value=1 id="cost_1_1"><span id="cost_1_1_value">1</span></td>
+                </tr>
+                <tr>
+                    <td valign="top"><span> コスト#1-#2 </span></td>
+                    <td><input type="range" min="1" max="10" step="1" value=1 id="cost_1_2"><span id="cost_1_2_value">1</span></td>
+                </tr>
+                <tr>
+                    <td valign="top"><span> コスト#2-#2 </span></td>
+                    <td><input type="range" min="1" max="10" step="1" value=5 id="cost_2_2"><span id="cost_2_2_value">5</span></td>
+                </tr>
 
 
+            </table>
+        </div>
+
+        <div class="right_top_panel">
+        </div>
+
+        <div class="right_bottom_panel">
+            <div id="cy"></div>
+        </div>
 
     </div>
 
-    <div class="right_top_panel">
-
+    <div class="left_bottom_fixed">
+        <span>最短パス・マトリックス</span>
+        <div id="start_end_matrix"></div>
     </div>
-
-    <div class="right_bottom_panel">
-      <div id="cy"></div>
-    </div>
-
-  </div>
 
 </body>
 
 <script>
-  document.addEventListener("DOMContentLoaded", iida.main)
+    document.addEventListener("DOMContentLoaded", iida.main)
 </script>
 
 </html>

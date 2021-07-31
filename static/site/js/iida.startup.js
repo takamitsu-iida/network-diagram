@@ -9,7 +9,7 @@
     // network diagram data should be here
     var appdata = {};
 
-    appdata.current = "logical";  // or "physical"
+    appdata.current = "";  // "logical" or "physical", last read data overwrite this
     appdata.physical_routers = [];  // original data
     appdata.physical_elements = [];  // calculated elements for cytoscape.js
     appdata.logical_routers = [];  // original data

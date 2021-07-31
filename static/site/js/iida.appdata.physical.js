@@ -344,4 +344,6 @@
 
     iida.appdata.physical_elements = create_elements();
 
+    iida.appdata.current = "physical"
+
 })();

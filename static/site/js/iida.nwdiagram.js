@@ -172,7 +172,7 @@
                 name: 'preset'
             },
             style: basic_style,
-            elements: iida.appdata.logical_elements
+            elements: iida.appdata.get_elements()
         });
 
         // add the panzoom control
@@ -246,6 +246,13 @@
             });
         });
 
+        var initial_position = document.getElementById('idInitialPosition');
+        if (initial_position) {
+            initial_position.addEventListener('click', function (event) {
+                animate_to_initial_position();
+            });
+        };
+
         var get_initial_position = function (node) { return node.data('initial_position'); };
 
         var animate_to_initial_position = function () {
@@ -257,6 +264,14 @@
                 }).play().promise();
             }));
         };
+
+        var layout_change = document.getElementById('idLayout');
+        if (layout_change) {
+            layout_change.addEventListener('change', function (event) {
+                console.log("change layout: " + event.target.value);
+                CyLayout.set_layout(cy, event.target.value);
+            });
+        }
 
         var CyLayout = (function () {
             var _set_layout = function (cy, layout_name) {
@@ -289,10 +304,12 @@
             };
         })();
 
-        document.getElementById('idLayout').addEventListener('change', function (event) {
-            console.log("change layout: " + event.target.value);
-            CyLayout.set_layout(cy, event.target.value);
-        });
+        var data_change = document.getElementById('idData');
+        if (data_change) {
+            data_change.addEventListener('change', function (event) {
+                CyData.set_data(cy, event.target.value);
+            });
+        };
 
         var CyData = (function () {
             var _set_data = function (cy, data_name) {
@@ -306,56 +323,18 @@
             };
         })();
 
-        document.getElementById('idData').addEventListener('change', function (event) {
-            CyData.set_data(cy, event.target.value);
-        });
-
-        document.getElementById('idDijkstra').addEventListener('click', function (event) {
-            var start_node_radio = document.getElementsByName('start_node');
-            var end_node_radio = document.getElementsByName('end_node');
-            var len;
-            var start_node = '';
-            var end_node = '';
-
-            len = start_node_radio.length;
-            for (let i = 0; i < len; i++) {
-                if (start_node_radio.item(i).checked) {
-                    start_node = start_node_radio.item(i).value;
-                }
-            }
-            console.log('start: ' + start_node);
-
-            len = end_node_radio.length;
-            for (let i = 0; i < len; i++) {
-                if (end_node_radio.item(i).checked) {
-                    end_node = end_node_radio.item(i).value;
-                }
-            }
-            console.log('end: ' + end_node);
-
-            if (start_node !== end_node) {
-                start_node = cy.filter('node[id="' + start_node + '"]');
-                end_node = cy.filter('node[id="' + end_node + '"]');
-                ShortestPath.clear(cy);
-                ShortestPath.dijkstra(cy, start_node, end_node);
-            }
-
-//            var start = document.getElementById('idStartNode').value;
-//            var end = document.getElementById('idEndNode').value;
-//
-//            start = cy.filter('node[id="' + start + '"]');
-//            end = cy.filter('node[id="' + end + '"]');
-//            if (start && end) {
-//                ShortestPath.dijkstra(cy, start, end);
-//            }
-        });
-
-        document.getElementById('idDijkstraClear').addEventListener('click', function (event) {
-            ShortestPath.clear(cy);
-        });
-
         var ShortestPath = (function () {
-            var _dijkstra = function (cy, start_node, end_node) {
+            var _dijkstra = function (cy, start_node_id, end_node_id) {
+
+                var start_node = cy.filter('node[id="' + start_node_id + '"]');
+                if (!start_node) {
+                    return;
+                }
+                var end_node = cy.filter('node[id="' + end_node_id + '"]');
+                if (!end_node) {
+                    return;
+                }
+
                 // eles.dijkstra( options )
                 //   options
                 //      root: The root node (selector or collection) where the algorithm starts.
@@ -369,14 +348,13 @@
                 var bfs = dijkstra.pathTo(end_node);
                 var highlightNextEle = function () {
                     var el = bfs[x];
-                    if (el) {
-                        console.log(el);
-                        console.log(el.data('id'));
+                    if (el && el.isEdge()) {
                         el.addClass('highlighted');
                     }
                     if (x < bfs.length) {
                         x++;
-                        setTimeout(highlightNextEle, 500);
+                        // setTimeout(highlightNextEle, 500);
+                        highlightNextEle();
                     }
                 };
 
@@ -389,10 +367,215 @@
 
             return {
                 dijkstra: _dijkstra,
-                clear: _clear
+                clear: _clear,
+                is_running: false
             }
         })();
 
+        var start_end_matrix = document.getElementById('start_end_matrix');
+        if (start_end_matrix) {
+            // add '' before router_id list
+            var routers = [''].concat(iida.appdata.logical_router_ids);
+
+            var table = document.createElement('table');
+            table.setAttribute('style', "font-size: 8pt;");
+
+            // <tr> loop
+            for (var tr_index = 0; tr_index < routers.length; tr_index++) {
+                var tr = document.createElement('tr');
+
+                // td loop
+                for (var td_index = 0; td_index < routers.length; td_index++) {
+
+                    // first low
+                    if (tr_index === 0) {
+                        var td = document.createElement('td');
+                        td.setAttribute('valign', 'top');
+                        var span = document.createElement('span');
+                        span.className = "vertical";
+                        span.textContent = routers[td_index];
+                        td.appendChild(span);
+                        tr.appendChild(td);
+                    } else {
+                        // first column
+                        if (td_index === 0) {
+                            var td = document.createElement('td');
+                            var span = document.createElement('span');
+                            span.textContent = routers[tr_index];
+                            td.appendChild(span);
+                            tr.appendChild(td);
+                        } else {
+                            var td = document.createElement('td');
+                            if (td_index > tr_index) {
+                                var input = document.createElement('input');
+                                input.id = routers[tr_index] + routers[td_index];
+                                input.type = 'radio';
+                                input.name = 'start_end_matrix';
+                                input.value = [routers[tr_index], routers[td_index]];
+                                input.onchange = function () {
+                                    var radios = document.getElementsByName('start_end_matrix');
+                                    for (var i = 0; i < radios.length; i++) {
+                                        if (radios[i].checked) {
+                                            // console.log(radios[i].value);
+                                            var start_end_list = radios[i].value.split(',');
+                                            ShortestPath.clear(cy);
+                                            ShortestPath.dijkstra(cy, start_end_list[0], start_end_list[1]);
+                                        }
+                                    }
+                                };
+                                if (tr_index === 1 && td_index === 2) {
+                                    input.checked = true;
+                                }
+                                td.appendChild(input);
+                            }
+                            tr.appendChild(td);
+                        }
+                    }
+
+                }
+
+                table.appendChild(tr);
+            }
+
+            // 生成したtable要素を追加する
+            start_end_matrix.appendChild(table);
+        };
+
+
+        var dijkstra_start_all = document.getElementById('idStartStop');
+        if (dijkstra_start_all) {
+            dijkstra_start_all.addEventListener('change', function () {
+                ShortestPath.is_running = dijkstra_start_all.checked;
+                start_all_func();
+            });
+        };
+
+        var start_all_func = function () {
+            var router_ids = iida.appdata.logical_router_ids;
+            var row_index = 0;
+            var col_index = 0;
+
+            var move_to_checked = function () {
+                var radio_id = router_ids[row_index] + router_ids[col_index];
+                var radio = document.getElementById(radio_id);
+                if (radio && radio.checked) {
+                    return;
+                }
+                if (col_index < router_ids.length) {
+                    col_index++;
+                    move_to_checked();
+                } else {
+                    col_index = 0;
+                    if (row_index < router_ids.length) {
+                        row_index++;
+                        move_to_checked();
+                    }
+                }
+            };
+            move_to_checked();
+
+            var check_next = function () {
+                if (!ShortestPath.is_running) {
+                    return;
+                }
+                var radio_id = router_ids[row_index] + router_ids[col_index];
+                var radio = document.getElementById(radio_id);
+                if (radio) {
+                    radio.checked = true;
+                    radio.dispatchEvent(new Event('change'));
+                    /*
+                    var start_end_list = radio.value.split(',');
+                    var start_node = cy.filter('node[id="' + start_end_list[0] + '"]');
+                    var end_node = cy.filter('node[id="' + start_end_list[1] + '"]');
+                    ShortestPath.clear(cy);
+                    ShortestPath.dijkstra(cy, start_node, end_node);
+                    */
+                }
+
+                if (col_index < router_ids.length) {
+                    col_index++;
+                    var radio_id = router_ids[row_index] + router_ids[col_index];
+                    if (document.getElementById(radio_id)) {
+                        setTimeout(check_next, 1000);
+                    } else {
+                        check_next();
+                    }
+                } else {
+                    col_index = 0;
+                    if (row_index < router_ids.length) {
+                        row_index++;
+                        var radio_id = router_ids[row_index] + router_ids[col_index];
+                        if (document.getElementById(radio_id)) {
+                            setTimeout(check_next, 1000);
+                        } else {
+                            check_next();
+                        }
+                    } else {
+                        console.log("done");
+                        ShortestPath.is_running = false;
+                    }
+                }
+            }
+            check_next();
+        };
+
+        var dijkstra_clear = document.getElementById('idDijkstraClear');
+        if (dijkstra_clear) {
+            dijkstra_clear.addEventListener('click', function (event) {
+                ShortestPath.clear(cy);
+            });
+        };
+
+        var cost_1_1 = document.getElementById('cost_1_1');
+        if (cost_1_1) {
+            cost_1_1.addEventListener('input', function (event) {
+                var v = event.target.value;
+                document.getElementById('cost_1_1_value').innerText = v;
+                set_edge_weight();
+            });
+        }
+
+        var cost_1_2 = document.getElementById('cost_1_2');
+        if (cost_1_2) {
+            cost_1_2.addEventListener('input', function (event) {
+                var v = event.target.value;
+                document.getElementById('cost_1_2_value').innerText = v;
+                set_edge_weight();
+            });
+        }
+
+        var cost_2_2 = document.getElementById('cost_2_2');
+        if (cost_2_2) {
+            cost_2_2.addEventListener('input', function (event) {
+                var v = event.target.value;
+                document.getElementById('cost_2_2_value').innerText = v;
+                set_edge_weight();
+            });
+        }
+
+        var set_edge_weight = function () {
+            cy.edges().forEach(edge => {
+                for (var result of edge.id().matchAll(/#(\d).*#(\d)/g)) {
+                    switch((result[1] % 2) + (result[2] % 2)) {
+                        case 0:
+                            // #2-#2 従-従 0+0=0
+                            edge.data('weight', Number(cost_2_2.value));
+                            break;
+                        case 1:
+                            // #1-#2 主-従 1+0=1
+                            edge.data('weight', Number(cost_1_2.value));
+                            break;
+                        case 2:
+                            // #1-#1 主-主 1+1=2
+                            edge.data('weight', Number(cost_1_1.value));
+                            break;
+                    }
+
+                    console.log(edge.id() + " " + edge.data('weight'));
+
+                }
+            });
+        };
 
     };
     //

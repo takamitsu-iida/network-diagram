@@ -177,8 +177,9 @@
 
     //
     // iida.appdata.logical_routers配列から足りないデータを補完してcytoscape.js用のデータを作成する
-    //
+    // 同時にiida.appdata.logical_router_ids配列を作る
     var create_elements = function () {
+        iida.appdata.logical_router_ids = [];
         var eles = []
         iida.appdata.logical_routers.forEach(element => {
             if (element.source && element.target) {
@@ -200,6 +201,8 @@
                 var classes = element.classes || ['router', 'logical_router'];
                 var router_node = create_node(router_id).position(position).label(label).width(node_width).height(node_height).classes(classes);
                 eles.push(router_node.toObject());
+
+                iida.appdata.logical_router_ids.push(router_id);
             }
 
         });
@@ -207,6 +210,9 @@
     };
 
     iida.appdata.logical_elements = create_elements();
+
+    iida.appdata.current = "logical"
+
 
     //
     // fcose option
@@ -256,8 +262,6 @@
             {'top': "B棟コアルータ#1", 'bottom': "B棟コアルータ#2", 'gap': 300},
         ],
 
-
     };
-
 
 })();
