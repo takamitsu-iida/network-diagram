@@ -2,15 +2,21 @@
 
 ## ライブデモ(github pages)
 
-例１．検証用の構成図
+例１．検証用の物理構成図
 
-<https://takamitsu-iida.github.io/network-diagram/index.html>
+<https://takamitsu-iida.github.io/network-diagram/index.physical.html>
+
+
+例２．検証用のコスト設計
+
+<https://takamitsu-iida.github.io/network-diagram/index.logical.html>
+
 
 <br>
 
 ## ローカルでの実行方法
 
-index.htmlのある場所に行き、`http-server -c-1` コマンドでhttpサーバを起動して<http://127.0.0.1:8080/>にアクセスする。
+index.htmlのある場所に行き、`http-server -c-1` コマンドでhttpサーバを起動して<http://127.0.0.1:8080/>にアクセスします。
 
 http-serverのインストール方法。
 
