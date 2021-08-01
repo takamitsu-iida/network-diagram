@@ -375,7 +375,7 @@
         })();
 
         var CyShortestPath = (function () {
-            var _dijkstra = function (cy, start_node_id, end_node_id) {
+            var _dijkstra = function (cy, cy2, start_node_id, end_node_id) {
 
                 // get start node by id
                 var start_node = cy.filter('node[id="' + start_node_id + '"]');
@@ -400,9 +400,11 @@
                 var results = dijkstra.pathTo(end_node);
 
                 // set cy2 elements
-                cy2.elements().remove();
-                cy2.add(results);
-                cy2.layout({ 'name': "grid" }).run();
+                if (cy2) {
+                    cy2.elements().remove();
+                    cy2.add(results);
+                    cy2.layout({ 'name': "grid" }).run();
+                }
 
                 var step = 0;
                 var highlight_next = function () {
@@ -421,7 +423,7 @@
                 highlight_next();
             }
 
-            var _clear = function (cy) {
+            var _clear = function (cy, cy2) {
                 cy.elements().removeClass('highlighted');
                 cy2.elements().remove();
             }
@@ -479,8 +481,8 @@
                                 input.start_node = routers[tr_index];  // store original key 'start_node'
                                 input.end_node = routers[td_index];  // store original key 'end_node'
                                 input.onchange = function (evt) {
-                                    CyShortestPath.clear(cy);
-                                    CyShortestPath.dijkstra(cy, evt.target.start_node, evt.target.end_node);
+                                    CyShortestPath.clear(cy, cy2);
+                                    CyShortestPath.dijkstra(cy, cy2, evt.target.start_node, evt.target.end_node);
                                 };
                                 // check if this is the first radio
                                 if (tr_index === 1 && td_index === 2) {
@@ -593,7 +595,7 @@
         var dijkstra_clear = document.getElementById('idDijkstraClear');
         if (dijkstra_clear) {
             dijkstra_clear.addEventListener('click', function (evt) {
-                CyShortestPath.clear(cy);
+                CyShortestPath.clear(cy, cy2);
             });
         };
 
