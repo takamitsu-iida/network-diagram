@@ -52,7 +52,11 @@
     <div class="wrapper">
         <div class="left_panel">
 
-            <table>
+            <table style="width: 100%;">
+                <tr>
+                    <th width="45%"></th>
+                    <th width="55%"></th>
+                </tr>
                 <tr>
                     <td><span title="レイアウトアルゴリズムの変更"> レイアウト </span></td>
                     <td>
@@ -85,16 +89,24 @@
                 </tr>
 
                 <tr>
-                    <td><span title="最短パスの計算を開始・停止"> 最短パス開始・停止 </span></td>
-                    <td>
-                        <div>
-                            <label class="switch2__label">
-                                <input type="checkbox" class="switch2__input" id="idStartStop" />
-                                <span class="switch2__content"></span>
-                                <span class="switch2__circle"></span>
-                            </label>
-                        </div>
-                    </td>
+                    <td valign="top"><span> コスト#1-#1 </span></td>
+                    <td><input type="range" min="1" max="10" step="1" value=1 id="cost_1_1"><span
+                            id="cost_1_1_value">1</span></td>
+                </tr>
+                <tr>
+                    <td valign="top"><span> コスト#1-#2 </span></td>
+                    <td><input type="range" min="1" max="10" step="1" value=1 id="cost_1_2"><span
+                            id="cost_1_2_value">1</span></td>
+                </tr>
+                <tr>
+                    <td valign="top"><span> コスト#2-#2 </span></td>
+                    <td><input type="range" min="1" max="10" step="1" value=5 id="cost_2_2"><span
+                            id="cost_2_2_value">5</span></td>
+                </tr>
+
+                <tr>
+                    <td>-----</td>
+                    <td>-----</td>
                 </tr>
 
                 <tr>
@@ -108,16 +120,13 @@
                 </tr>
 
                 <tr>
-                    <td valign="top"><span> コスト#1-#1 </span></td>
-                    <td><input type="range" min="1" max="10" step="1" value=1 id="cost_1_1"><span id="cost_1_1_value">1</span></td>
-                </tr>
-                <tr>
-                    <td valign="top"><span> コスト#1-#2 </span></td>
-                    <td><input type="range" min="1" max="10" step="1" value=1 id="cost_1_2"><span id="cost_1_2_value">1</span></td>
-                </tr>
-                <tr>
-                    <td valign="top"><span> コスト#2-#2 </span></td>
-                    <td><input type="range" min="1" max="10" step="1" value=5 id="cost_2_2"><span id="cost_2_2_value">5</span></td>
+                    <td><span title="最短パスの全数計算を開始・停止"> 全件確認・開始停止 </span></td>
+                    <td>
+                        <label class="video_play_pause" style="font-size: 30px;">
+                            <input type="checkbox" id="idStartStop">
+                            <span title="マトリックスを走査していきます"></span>
+                        </label>
+                    </td>
                 </tr>
 
 

@@ -13,19 +13,17 @@ body {
     padding: 10px;
     column-gap: 10px;
     row-gap: 10px;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 400px 1fr;
 }
 
 .left_panel {
     grid-row: 1 / 3;
     grid-column: 1;
-    height: auto;
     z-index: 10;
     top: 0;
     left: 0;
     background-color: #b7ffff;
-    overflow-x: hidden;
-    /* Disable horizontal scroll */
+    overflow-x: hidden;  /* Disable horizontal scroll */
 }
 
 .right_panel {
@@ -70,7 +68,7 @@ body {
     position: fixed;
     z-index: 1000;
     left: 0;
-    bottom: 0;
+    bottom: 250px;
     width: 600;
     height: 600;
     margin: 20px;
@@ -90,95 +88,50 @@ body {
     white-space: nowrap;
 }
 
+/* https://migi.me/css/video-play-pause-icon/ */
 
-/* https://sdesignlabo.com/web/togglebutton/ */
-
-.switch2__label {
-    width: 44px;
-    position: relative;
+.video_play_pause {
     display: inline-block;
-}
-
-.switch2__content {
-    display: block;
-    cursor: pointer;
     position: relative;
-    border-radius: 30px;
-    height: 20px;
-    -webkit-transition: all .1s .4s;
-    -moz-transition: all .1s .4s;
-    -ms-transition: all .1s .4s;
-    -o-transition: all .1s .4s;
-    transition: all .1s .4s;
-    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    border: 0.05em solid currentColor;
+    border-radius: 50%;
+    color: #000;
+    font-size: 200px;
 }
 
-.switch2__content:before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: calc(100% - 4px);
-    height: calc(100% - 4px);
-    top: 0;
-    left: 0;
-    border: 1.5px solid #000000;
-    border-radius: 20px;
-    background-color: #fff;
-}
-
-.switch2__content:after {
-    content: "";
-    display: block;
-    position: absolute;
-    background-color: transparent;
-    width: 0;
-    height: 100%;
-    top: 0;
-    left: 0;
-    border-radius: 20px;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -ms-transition: all .5s;
-    -o-transition: all .5s;
-    transition: all .5s;
-}
-
-.switch2__input {
+.video_play_pause > input {
     display: none;
 }
 
-.switch2__circle {
-    display: block;
-    top: 5px;
-    left: 5px;
+.video_play_pause > input:not(:checked) + span::before {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background-color: #000000;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -ms-transition: all .5s;
-    -o-transition: all .5s;
-    transition: all .5s;
+    top: 50%;
+    left: 30%;
+    transform: translateY(-50%);
+    width: 0px;
+    height: 0px;
+    border: 0.3em solid transparent;
+    border-left: 0.5em solid currentColor;
+    box-sizing: border-box;
+    content: "";
 }
 
-.switch2__input:checked~.switch2__circle {
-    left: 29px;
-    background-color: #fff;
+.video_play_pause > input:checked + span::before,
+.video_play_pause > input:checked + span::after {
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 0.1em;
+    height: 0.5em;
+    box-sizing: border-box;
+    background-color: currentColor;
+    content: "";
 }
-
-.switch2__input:checked~.switch2__content {
-    border-color: transparent;
-    -webkit-transition: all 0s;
-    -moz-transition: all 0s;
-    -ms-transition: all 0s;
-    -o-transition: all 0s;
-    transition: all 0s;
+.video_play_pause > input:checked + span::before {
+    left: 40%;
 }
-
-.switch2__input:checked~.switch2__content:after {
-    background-color: #00c4cc;
-    width: 100%;
+.video_play_pause > input:checked + span::after {
+    left: 60%;
 }

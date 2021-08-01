@@ -8,21 +8,18 @@
             {
                 'selector': "edge",
                 'style': {
-                    'curve-style': "bezier", // "taxi" "bezier" "segments",
                     'width': 2,
-                    // 'line-color': '#2B65EC',  // blue
-                    'line-color': "#a9a9a9",
-                    // 'target-arrow-color': "#a9a9a9",
-                    // 'source-arrow-color': "#a9a9a9",
+                    'curve-style': "bezier",  // "taxi" "bezier" "segments",
+                    'line-color': "#a9a9a9",  // darkgray
+                    // 'target-arrow-color': "#a9a9a9",  // darkgray
+                    // 'source-arrow-color': "#a9a9a9",  // darkgray
                     // 'target-arrow-shape': "circle",
                     // 'source-arrow-shape': "circle",
                     // 'label': "data(label)",
-                    'label': edge => edge.data('label') ? `\u2060${edge.data('label')}\n\u2060` : '',
-                    'text-wrap': "wrap",
+                    'text-wrap': "wrap",  // wrap is needed to work \n
+                    'label': edge => edge.data('label') ? `\u2060${edge.data('label')}\n\n\u2060` : '',
                     'font-size': "8px",
                     'edge-text-rotation': "autorotate",
-                    'source-endpoint': "outside-to-node",
-                    'target-endpoint': "outside-to-node",
                     // 'source-text-offset': 10,
                     // 'target-text-offset': 10,
                 }
@@ -31,9 +28,9 @@
             {
                 'selector': "edge.highlighted",
                 'style': {
-                    'line-color': '#0000ff',
-                    'width': 5,
-                    // 'background-color': "#a9a9a9",
+                    'width': 4,
+                    'line-color': '#0000ff',  // blue
+                    // 'background-color': "#a9a9a9",  // darkgray
                     // 'transition-property': "background-color, line-color",
                     // 'transition-duration': "0.5s"
                 }
@@ -64,7 +61,7 @@
                     'border-color': "#000",
                     'border-width': 1,
                     'shape': "rectangle",
-                    'background-color': "#87ceeb",
+                    'background-color': "#87ceeb",  // skyblue
                     'label': "data(label)",
                     'width': "data(width)",
                     'height': "data(height)",
@@ -81,9 +78,9 @@
                 'selector': ".physical_connector",
                 'style': {
                     'shape': "rectangle",
-                    'background-color': "#a9a9a9",
-                    'width': 2,
-                    'height': 2,
+                    'background-color': "#a9a9a9",  // darkgray
+                    'width': 2,  // this must be same as line width
+                    'height': 2,  // this must be same as line width
                 }
             },
 
@@ -96,7 +93,7 @@
                     'text-valign': "center",
                     'text-halign': "center",
                     'font-size': "8px",
-                    'background-color': "#f0e68c",
+                    'background-color': "#f0e68c",  // khaki
                     'border-width': 0,
                     'opacity': 1
                 }
@@ -108,7 +105,7 @@
                     'border-color': "#000",
                     'border-width': 1,
                     'shape': "round-rectangle",
-                    'background-color': "#ffffff",
+                    'background-color': "#20b2aa",  // lightseagreen
                     'label': "data(label)",
                     'width': "data(width)",
                     'height': "data(height)",
@@ -127,7 +124,7 @@
                     'border-color': "#000",
                     'border-width': 1,
                     'shape': "round-rectangle",
-                    'background-color': "#30c9bc",
+                    'background-color': "#40e0d0",  // turquoise
                     'label': "data(label)",
                     'width': "data(width)",
                     'height': "data(height)",
@@ -143,8 +140,8 @@
             {
                 'selector': ".router.highlighted",
                 'style': {
-                    'border-color': "#0000ff",
-                    'border-width': 5,
+                    'border-color': "#0000ff",  // blue
+                    'border-width': 4,
                 }
             },
 
@@ -176,9 +173,7 @@
             maxZoom: 3,
             boxSelectionEnabled: false,
             autounselectify: true,
-            layout: {
-                name: 'preset'
-            },
+            layout: { 'name': "preset" },
             style: basic_style,
             elements: iida.appdata.get_elements()
         });
@@ -192,57 +187,73 @@
                 maxZoom: 3,
                 boxSelectionEnabled: false,
                 autounselectify: true,
-                layout: {
-                    name: 'breadthfirst',
-                    directed: false,
-                    padding: 10
-                },
                 style: cytoscape.stylesheet()
-                    .selector('node')
-                    .css({
-                        'background-color': '#6272A3',
-                        'shape': 'rectangle',
+                    .selector(".logical_router.P")
+                    .style({
+                        'border-color': "#000",
+                        'border-width': 1,
+                        'shape': "round-rectangle",
+                        'background-color': "#20b2aa",  // lightseagreen
+                        'label': "data(id)",
+                        'width': 100,
+                        'height': 100,
+                        'font-size': "10px",
+                        'text-valign': "center",
+                        'text-halign': "center",
+                    })
+                    .selector(".logical_router.PE")
+                    .style({
+                        'border-color': "#000",
+                        'border-width': 1,
+                        'shape': "round-rectangle",
+                        'background-color': "#40e0d0",  // turquoise
+                        'label': "data(id)",
+                        'width': 100,
+                        'height': 100,
+                        'font-size': "10px",
+                        'text-valign': "center",
+                        'text-halign': "center",
                     })
                     .selector('edge')
-                    .css({
-                        'line-color': '#B1C1F2',
-                        'target-arrow-color': '#B1C1F2',
+                    .style({
+                        "curve-style": "straight",
+                        'line-color': "#0000ff",  // blue
+                        'target-arrow-color': "#0000ff",  // blue
+                        'source-arrow-color': "#0000ff",  // blue
+                        'target-arrow-shape': "circle",
+                        'source-arrow-shape': "circle",
+                        'width': 2,
+                        'text-wrap': "wrap",
+                        'label': edge => edge.data('weight') ? `\u2060${edge.data('weight')}\n\n\u2060` : '',
+                        'font-size': "20px",
                     }),
-                elements: []
+
+                elements: [],
+                layout: { 'name': "grid" }
             });
         }
 
-        // add the panzoom control
-        cy.panzoom({
-            zoomFactor: 0.05, // zoom factor per zoom tick
-            zoomDelay: 45, // how many ms between zoom ticks
-            minZoom: 0.1, // min zoom level
-            maxZoom: 10, // max zoom level
-            fitPadding: 50, // padding when fitting
-            panSpeed: 10, // how many ms in between pan ticks
-            panDistance: 10, // max pan distance per tick
-            panDragAreaSize: 75, // the length of the pan drag box in which the vector for panning is calculated (bigger = finer control of pan speed and direction)
-            panMinPercentSpeed: 0.25, // the slowest speed we can pan by (as a percent of panSpeed)
-            panInactiveArea: 8, // radius of inactive area in pan drag box
-            panIndicatorMinOpacity: 0.5, // min opacity of pan indicator (the draggable nib); scales from this to 1.0
-            zoomOnly: false, // a minimal version of the ui only with zooming (useful on systems with bad mousewheel resolution)
-            fitSelector: undefined, // selector of elements to fit
-            animateOnFit: function () { // whether to animate on fit
-                return false;
-            },
-            fitAnimationDuration: 1000, // duration of animation on fit
+        // add the panzoom control with default parameter
+        // https://github.com/cytoscape/cytoscape.js-panzoom
+        cy.panzoom({});
 
-            // icon class names
-            sliderHandleIcon: 'fa fa-minus',
-            zoomInIcon: 'fa fa-plus',
-            zoomOutIcon: 'fa fa-minus',
-            resetIcon: 'fa fa-expand'
-        });
+        // get edge between two nodes
+        var get_edge_by_nodes = function (cy, start_node_id, end_node_id) {
+            var edges = cy.edges().filter(edge => {
+                var source_id = edge.source().data('id');
+                var target_id = edge.target().data('id');
+                return (start_node_id === source_id || start_node_id === target_id) && (end_node_id === source_id || end_node_id === target_id);
+            });
+            if (edges && edges.length > 0) {
+                return edges[0];
+            }
+            return undefined;
+        };
 
         // on grab, all router node save own position
         cy.on('grab', '.router', function (evt) {
-            this.data('grab_x', this.position().x);
-            this.data('grab_y', this.position().y);
+            evt.target.data('grab_x', evt.target.position().x);
+            evt.target.data('grab_y', evt.target.position().y);
 
             cy.$('.router').forEach(function (n) {
                 n.data('old_x', n.position().x);
@@ -250,12 +261,12 @@
             });
         });
 
-        // on drag, find drag_with nodes and set position
+        // on drag, find drag_with nodes and set new position
         cy.on('drag', '.router', function (evt) {
-            var delta_x = this.position().x - this.data('grab_x');
-            var delta_y = this.position().y - this.data('grab_y');
+            var delta_x = evt.target.position().x - evt.target.data('grab_x');
+            var delta_y = evt.target.position().y - evt.target.data('grab_y');
 
-            var targets = this.data('drag_with') || [];
+            var targets = evt.target.data('drag_with') || [];
             targets.forEach(function (target) {
                 var n = cy.$id(target);
                 if (n && !n.grabbed()) {
@@ -266,7 +277,7 @@
             });
         });
 
-        // on position, fix port position
+        // on position, fix physical port position
         cy.on('position', '.router', function (evt) {
             var router = evt.target;
             var router_position = router.position();
@@ -283,9 +294,10 @@
             });
         });
 
+        // the button to revert to initial position
         var initial_position = document.getElementById('idInitialPosition');
         if (initial_position) {
-            initial_position.addEventListener('click', function (event) {
+            initial_position.addEventListener('click', function (evt) {
                 animate_to_initial_position();
             });
         };
@@ -302,11 +314,11 @@
             }));
         };
 
+        // the dropdown list to change layout
         var layout_change = document.getElementById('idLayout');
         if (layout_change) {
-            layout_change.addEventListener('change', function (event) {
-                console.log("change layout: " + event.target.value);
-                CyLayout.set_layout(cy, event.target.value);
+            layout_change.addEventListener('change', function (evt) {
+                CyLayout.set_layout(cy, evt.target.value);
             });
         }
 
@@ -341,10 +353,12 @@
             };
         })();
 
+        // currently not used
+        // change data dynamically
         var data_change = document.getElementById('idData');
         if (data_change) {
-            data_change.addEventListener('change', function (event) {
-                CyData.set_data(cy, event.target.value);
+            data_change.addEventListener('change', function (evt) {
+                CyData.set_data(cy, evt.target.value);
             });
         };
 
@@ -360,32 +374,35 @@
             };
         })();
 
-        var ShortestPath = (function () {
+        var CyShortestPath = (function () {
             var _dijkstra = function (cy, start_node_id, end_node_id) {
 
+                // get start node by id
                 var start_node = cy.filter('node[id="' + start_node_id + '"]');
                 if (!start_node) {
                     return;
                 }
+                // get end node by id
                 var end_node = cy.filter('node[id="' + end_node_id + '"]');
                 if (!end_node) {
                     return;
                 }
 
                 // eles.dijkstra( options )
-                //   options
-                //      root: The root node (selector or collection) where the algorithm starts.
-                //      weight: function(edge) [optional] A function that returns the positive numeric weight for the edge. The weight indicates the cost of going from one node to another node.
-                //      directed: [optional] A boolean indicating whether the algorithm should only go along edges from source to target (default false).
+                // options
+                //    root: The root node (selector or collection) where the algorithm starts.
+                //    weight: function(edge) [optional] A function that returns the positive numeric weight for the edge. The weight indicates the cost of going from one node to another node.
+                //    directed: [optional] A boolean indicating whether the algorithm should only go along edges from source to target (default false).
                 var dijkstra = cy.elements().dijkstra(start_node, function (node) {
-                    return parseInt(node.data('weight'));
+                    return node.data('weight');
                 }, false);
 
                 var results = dijkstra.pathTo(end_node);
 
+                // set cy2 elements
                 cy2.elements().remove();
                 cy2.add(results);
-                cy2.layout({name: "grid", directed: false }).run();
+                cy2.layout({ 'name': "grid" }).run();
 
                 var step = 0;
                 var highlight_next = function () {
@@ -406,6 +423,7 @@
 
             var _clear = function (cy) {
                 cy.elements().removeClass('highlighted');
+                cy2.elements().remove();
             }
 
             return {
@@ -422,58 +440,74 @@
 
             var table = document.createElement('table');
             table.setAttribute('style', "font-size: 8pt;");
+            table.setAttribute('cellspacing', 0);
 
             // <tr> loop
             for (var tr_index = 0; tr_index < routers.length; tr_index++) {
                 var tr = document.createElement('tr');
 
-                // td loop
+                // <td> loop
                 for (var td_index = 0; td_index < routers.length; td_index++) {
+                    var td = document.createElement('td');
 
-                    // first low
                     if (tr_index === 0) {
-                        var td = document.createElement('td');
-                        td.setAttribute('valign', 'top');
+                        // the first row
+                        td.setAttribute('style', "vertical-align: top");
                         var span = document.createElement('span');
                         span.className = "vertical";
                         span.textContent = routers[td_index];
                         td.appendChild(span);
-                        tr.appendChild(td);
                     } else {
+                        td.setAttribute('style', "text-align: center");
                         // first column
                         if (td_index === 0) {
-                            var td = document.createElement('td');
+                            td.setAttribute('style', "text-align: left");
                             var span = document.createElement('span');
                             span.textContent = routers[tr_index];
                             td.appendChild(span);
-                            tr.appendChild(td);
                         } else {
-                            var td = document.createElement('td');
-                            if (td_index > tr_index) {
+                            if (td_index === tr_index) {
+                                // start is same as end
+                                var span = document.createElement('span');
+                                span.textContent = "-";
+                                td.appendChild(span);
+                            } else if (td_index > tr_index) {
                                 var input = document.createElement('input');
                                 input.id = routers[tr_index] + routers[td_index];
                                 input.type = 'radio';
                                 input.name = 'start_end_matrix';
-                                input.value = [routers[tr_index], routers[td_index]];
-                                input.onchange = function () {
-                                    var radios = document.getElementsByName('start_end_matrix');
-                                    for (var i = 0; i < radios.length; i++) {
-                                        if (radios[i].checked) {
-                                            // console.log(radios[i].value);
-                                            var start_end_list = radios[i].value.split(',');
-                                            ShortestPath.clear(cy);
-                                            ShortestPath.dijkstra(cy, start_end_list[0], start_end_list[1]);
-                                        }
-                                    }
+                                input.start_node = routers[tr_index];  // store original key 'start_node'
+                                input.end_node = routers[td_index];  // store original key 'end_node'
+                                input.onchange = function (evt) {
+                                    CyShortestPath.clear(cy);
+                                    CyShortestPath.dijkstra(cy, evt.target.start_node, evt.target.end_node);
                                 };
+                                // check if this is the first radio
                                 if (tr_index === 1 && td_index === 2) {
                                     input.checked = true;
                                 }
                                 td.appendChild(input);
+                            } else {
+                                var edge = get_edge_by_nodes(cy, routers[tr_index], routers[td_index]);
+                                if (edge !== undefined) {
+                                    var input = document.createElement('input');
+                                    input.id = 'text_' + routers[tr_index] + routers[td_index];
+                                    input.type = 'text';
+                                    input.name = 'start_end_edge';
+                                    input.value = edge.data('weight') || -1;
+                                    input.disabled = true;
+                                    input.maxLength = 2;
+                                    input.setAttribute('style', "width:20px;");
+                                    input.start_node = routers[tr_index];  // store original key 'start_node'
+                                    input.end_node = routers[td_index];  // store original key 'end_node'
+                                    td.appendChild(input);
+                                }
                             }
-                            tr.appendChild(td);
+
                         }
+
                     }
+                    tr.appendChild(td);
 
                 }
 
@@ -487,7 +521,7 @@
         var dijkstra_start_all = document.getElementById('idStartStop');
         if (dijkstra_start_all) {
             dijkstra_start_all.addEventListener('change', function () {
-                ShortestPath.is_running = dijkstra_start_all.checked;
+                CyShortestPath.is_running = dijkstra_start_all.checked;
                 start_all_func();
             });
         };
@@ -517,7 +551,7 @@
             move_to_checked();
 
             var check_next = function () {
-                if (!ShortestPath.is_running) {
+                if (!CyShortestPath.is_running) {
                     return;
                 }
                 var radio_id = router_ids[row_index] + router_ids[col_index];
@@ -547,7 +581,7 @@
                         }
                     } else {
                         console.log("done");
-                        ShortestPath.is_running = false;
+                        CyShortestPath.is_running = false;
                         dijkstra_start_all.checked = false;
                     }
                 }
@@ -555,62 +589,91 @@
             check_next();
         };
 
+        // clear highlighted class
         var dijkstra_clear = document.getElementById('idDijkstraClear');
         if (dijkstra_clear) {
-            dijkstra_clear.addEventListener('click', function (event) {
-                ShortestPath.clear(cy);
+            dijkstra_clear.addEventListener('click', function (evt) {
+                CyShortestPath.clear(cy);
             });
         };
 
+        // slider for edge #1-#1
         var cost_1_1 = document.getElementById('cost_1_1');
         if (cost_1_1) {
-            cost_1_1.addEventListener('input', function (event) {
-                var v = event.target.value;
+            cost_1_1.addEventListener('input', function (evt) {
+                var v = evt.target.value;
                 document.getElementById('cost_1_1_value').innerText = v;
-                set_edge_weight();
+                set_edge_weight(cy);
             });
         }
 
+        // slider for edge #1-#2
         var cost_1_2 = document.getElementById('cost_1_2');
         if (cost_1_2) {
-            cost_1_2.addEventListener('input', function (event) {
-                var v = event.target.value;
+            cost_1_2.addEventListener('input', function (evt) {
+                var v = evt.target.value;
                 document.getElementById('cost_1_2_value').innerText = v;
-                set_edge_weight();
+                set_edge_weight(cy);
             });
         }
 
+        // slider for edge #2-#2
         var cost_2_2 = document.getElementById('cost_2_2');
         if (cost_2_2) {
-            cost_2_2.addEventListener('input', function (event) {
-                var v = event.target.value;
+            cost_2_2.addEventListener('input', function (evt) {
+                var v = evt.target.value;
                 document.getElementById('cost_2_2_value').innerText = v;
-                set_edge_weight();
+                set_edge_weight(cy);
             });
         }
 
-        var set_edge_weight = function () {
-            cy.edges().forEach(edge => {
-                for (var results of edge.id().matchAll(/#(\d).*#(\d)/g)) {
-                    switch ((results[1] % 2) + (results[2] % 2)) {
-                        case 0:
-                            // #2-#2 従-従 0+0=0
-                            edge.data('weight', parseInt(cost_2_2.value));
-                            break;
-                        case 1:
-                            // #1-#2 主-従 1+0=1
-                            edge.data('weight', parseInt(cost_1_2.value));
-                            break;
-                        case 2:
-                            // #1-#1 主-主 1+1=2
-                            edge.data('weight', parseInt(cost_1_1.value));
-                            break;
-                    }
+        var set_edge_weight = function (cy) {
+            var mod2 = function (node_id) {
+                var matched = node_id.match(/#(\d)$/);
+                if (matched[1]) {
+                    return matched[1] % 2;
                 }
-                dijkstra_restart();
+                return -1;
+            };
+
+            cy.edges().forEach(edge => {
+                var source_id = edge.source().data('id');
+                var target_id = edge.target().data('id');
+                var source_mod2 = mod2(source_id);
+                if (source_mod2 < 0) {
+                    return;
+                }
+                var target_mod2 = mod2(target_id);
+                if (target_mod2 < 0) {
+                    return;
+                }
+                switch (source_mod2 + target_mod2) {
+                    case 0:  // #2-#2 従-従 mod2 0+0=0
+                        edge.data('weight', parseInt(cost_2_2.value));
+                        break;
+                    case 1:  // #1-#2 主-従 mod2 1+0=1
+                        edge.data('weight', parseInt(cost_1_2.value));
+                        break;
+                    case 2:  // #1-#1 主-主 mod2 1+1=2
+                        edge.data('weight', parseInt(cost_1_1.value));
+                        break;
+                }
             });
+
+            var texts = document.getElementsByName('start_end_edge');
+            texts.forEach(input => {
+                var start_node_id = input.start_node;
+                var end_node_id = input.end_node;
+                var edge = get_edge_by_nodes(cy, start_node_id, end_node_id);
+                if (edge) {
+                    input.value = edge.data('weight');
+                }
+            });
+
+            dijkstra_restart();
         };
 
+        // find selected radio button and dispatch 'change' event
         var dijkstra_restart = function () {
             var radios = document.getElementsByName('start_end_matrix');
             for (var i = 0; i < radios.length; i++) {
