@@ -169,7 +169,7 @@
 
         var cy = window.cy = cytoscape({
             container: document.getElementById('cy'),
-            minZoom: 0.5,
+            minZoom: 0.2,
             maxZoom: 3,
             boxSelectionEnabled: false,
             autounselectify: true,
