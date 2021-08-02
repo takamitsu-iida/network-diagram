@@ -2,7 +2,7 @@
 
 ## Live demo (github pages)
 
-Ex1. labo physical network diagram
+Ex1. Labo network physical diagram
 
 <https://takamitsu-iida.github.io/network-diagram/index.physical.html>
 
