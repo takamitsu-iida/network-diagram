@@ -374,73 +374,7 @@
             };
         })();
 
-        var CyShortestPath = (function () {
-            var _dijkstra = function (cy, start_node_id, end_node_id) {
 
-                // get start node by id
-                var start_node = cy.filter('node[id="' + start_node_id + '"]');
-                if (!start_node) {
-                    return;
-                }
-                // get end node by id
-                var end_node = cy.filter('node[id="' + end_node_id + '"]');
-                if (!end_node) {
-                    return;
-                }
-
-                // eles.dijkstra( options )
-                // options
-                //    root: The root node (selector or collection) where the algorithm starts.
-                //    weight: function(edge) [optional] A function that returns the positive numeric weight for the edge. The weight indicates the cost of going from one node to another node.
-                //    directed: [optional] A boolean indicating whether the algorithm should only go along edges from source to target (default false).
-                var dijkstra = cy.elements().dijkstra(start_node, function (node) {
-                    return node.data('weight');
-                }, false);
-
-                var results = dijkstra.pathTo(end_node);
-
-                // set cy2 elements
-                cy2.elements().remove();
-                cy2.add(results);
-                cy2.layout({ 'name': "grid" }).run();
-
-                var step = 0;
-                var highlight_next = function () {
-                    var el = results[step];
-                    if (el/* && el.isEdge()*/) {
-                        // console.log(el.id());
-                        el.addClass('highlighted');
-                    }
-                    if (step < results.length) {
-                        step++;
-                        // setTimeout(highlight_next, 500);
-                        highlight_next();
-                    }
-                };
-
-                highlight_next();
-            }
-
-            var _clear = function (cy) {
-                cy.elements().removeClass('highlighted');
-                cy2.elements().remove();
-            }
-
-            return {
-                dijkstra: _dijkstra,
-                clear: _clear,
-                is_running: false
-            }
-        })();
-
-
-        // clear highlighted class
-        var dijkstra_clear = document.getElementById('idDijkstraClear');
-        if (dijkstra_clear) {
-            dijkstra_clear.addEventListener('click', function (evt) {
-                CyShortestPath.clear(cy);
-            });
-        };
 
     };
     //

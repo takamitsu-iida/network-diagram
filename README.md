@@ -1,24 +1,25 @@
-# cytoscape.jsを使ったネットワーク図
+# Network Diagram by cytoscape.js
 
-## ライブデモ(github pages)
+## Live demo (github pages)
 
-例１．検証用の物理構成図
+Ex1. labo physical network diagram
 
 <https://takamitsu-iida.github.io/network-diagram/index.physical.html>
 
 
-例２．検証用のコスト設計
+Ex2. Shortest Path calculation
 
 <https://takamitsu-iida.github.io/network-diagram/index.logical.html>
 
 
 <br>
 
-## ローカルでの実行方法
+## How to run on local environment
 
-index.htmlのある場所に行き、`http-server -c-1` コマンドでhttpサーバを起動して<http://127.0.0.1:8080/>にアクセスします。
 
-http-serverのインストール方法。
+run `http-server -c-1` command at the index.html directry.
+
+how to install http-server.
 
 ```bash
 npm install -g http-server
@@ -26,7 +27,7 @@ npm install -g http-server
 
 <br>
 
-# 参考
+# Reference
 
 <https://js.cytoscape.org/>
 
@@ -36,8 +37,6 @@ npm install -g http-server
 
 ## pan-zoom
 
-便利。導入予定。
-
-jqueryとfont-awesome4が必要。
+This requires jquery and font-awesome4.
 
 <https://github.com/cytoscape/cytoscape.js-panzoom>
