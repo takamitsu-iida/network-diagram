@@ -13,7 +13,7 @@ body {
     padding: 10px;
     column-gap: 10px;
     row-gap: 10px;
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 300px 1fr;
 }
 
 .left_panel {
